@@ -37,9 +37,10 @@ A level-based educational puzzle game that demonstrates the mathematics of gerry
 - **FR-3.2 (Population parity)** Every district MUST contain the same number of cells. Parity MUST be exact (permitted deviation is 0).
 - **FR-3.3 (Coverage)** A solution MUST assign every assignable cell to exactly one district — no unassigned or doubly-assigned cells — before it can be evaluated as complete.
 - **FR-3.4 (District count)** The number of districts `K` MUST equal the per-level target. The system MUST reject partitions with more or fewer than `K` districts.
-- **FR-3.5 (Compactness)** For Level 4, the system MUST enforce a discrete compactness metric calculated from the perimeter-to-area ratio. The score MUST be mapped to a letter grade (A, B, C, D, F) and the player MUST achieve a C or higher. 
+- **FR-3.5 (Compactness)** For Level 4, the system MUST enforce a discrete compactness metric calculated from the perimeter-to-area ratio. The score MUST be mapped to a letter grade (A, B, C, D, F) and the player MUST achieve a C or higher. The A–F cutoffs are per-level tuning constants, not fixed universal thresholds, and MAY be recalibrated so long as a graded C-or-higher solution remains reachable.
 - **FR-3.6** Each validation rule MUST be independently testable: given a grid and an assignment, the system MUST report per-rule pass/fail for contiguity, parity, coverage, district count, and any active level-specific rules stated in FR-5.3.
 - **FR-3.7** The system MUST surface which specific district(s) and cell(s) violate a rule so the result is diagnosable, not just a global pass/fail.
+- **FR-3.8 (Efficiency Gap)** For Level 6, the system MUST compute the efficiency gap. A "wasted vote" is defined as: every vote for the losing party in a district, plus every vote for the winning party beyond the strict-majority threshold (`cells_to_win = ⌊district_size / 2⌋ + 1`). The efficiency gap is `(opponent_wasted − jerry_wasted) / total_cells`; a higher value favors Jerry. The level defines a minimum gap the player MUST meet or exceed.
 
 ### FR-4 Win / Loss Evaluation
 
@@ -48,20 +49,21 @@ A level-based educational puzzle game that demonstrates the mathematics of gerry
 - **FR-4.3** Each level MUST define a target win condition expressed in terms of districts won by Jerry's party. 
 - **FR-4.4** A level is SOLVED when all applicable validation rules in FR-3 pass AND the target win condition in FR-4.3 is met. The system MUST evaluate these together and report SOLVED / NOT SOLVED.
 - **FR-4.5** The system MUST display the current district-win tally so the player can see progress toward the target before completion.
+- **FR-4.6** When the player submits a partition that fails validation or the win condition, the system MUST display a NOT SOLVED result identifying the failed rule(s) per FR-3.7, and MUST return the player to their current grid state with no progress lost. There is no destructive failure state.
 
 ### FR-5 Level Progression (The Evil Jerry Campaign)
 
 - **FR-5.1** The game MUST present levels in an ordered sequence of increasing complexity. A level MUST be marked complete when it is SOLVED per FR-4.4. Completing a level MUST unlock the next level in sequence.
 - **FR-5.2** Each level MUST be fully specified by its data: grid dimensions, per-cell affiliations, fixed/void cells, district count `K`, active validation rules, and the target win condition. 
 - **FR-5.3** All level configurations MUST be mathematically guaranteed to be solvable via a backend pre-generation script.
-- **Level 1: The Basics of Packing and Cracking:** Grid: 4x4 squares (16 cells). Districts: 4 of 4 cells each. Win Condition: Win 2 or more districts. 
+- **Level 1: The Basics of Packing and Cracking:** Grid: 4x4 squares (16 cells). Districts: 4 of 4 cells each. Win Condition: Win a strict majority of districts (3 or more).
 - **Level 2: The Sprawl:** Grid: 8x8 squares (64 cells). Districts: 8 of 8 cells each. Win Condition: Win 5 or more districts.
-- **Level 3: The Triangle Trap:** Grid: Triangular lattice. Districts: 6 of 6 triangles each. Win Condition: Win a strict majority of districts.
+- **Level 3: The Triangle Trap:** Grid: an equilateral triangle subdivided into 36 unit triangles arranged in 6 rows, where row `i` (top to bottom) contains `2i − 1` triangles alternating point-up/point-down. Two unit triangles are adjacent iff they share an edge (each has at most 3 such neighbors). Districts: 6 of 6 triangles each. Win Condition: Win a strict majority of districts (4 or more).
 - **Level 4: The Report Card:** Grid: 10x10 squares (100 cells). Districts: 10 of 10 cells each. Win Condition: Win 6 or more districts AND achieve a discrete compactness grade of C or higher.
-- **Level 5: County Line Subgraphs:** Grid: 12x12 squares (144 cells) with four predefined 6x6 subgraphs. Districts: 12 of 12 cells each. Win Condition: Win 7 or more districts. Constraint: A district MUST NOT cross a county subgraph boundary more than once.
-- **Level 6: The Theoretical Upper Bound:** Grid: 14x14 squares (196 cells). Districts: 14 of 14 cells each. Win Condition: Achieve the maximum mathematically extractable seat share for Jerry's party.
+- **Level 5: The Natural Barrier:** Grid: 12x12 squares with a contiguous block of 12 void cells (a "lake") carved through the interior, leaving 132 assignable cells. Districts: 12 of 11 cells each. Win Condition: Win 7 or more districts. Void cells are not graph vertices (FR-1.6), so districts MUST remain contiguous while routing around the barrier. (The void count MUST keep the assignable-cell total divisible by `K`.)
+- **Level 6: The Efficiency Gap:** Grid: 14x14 squares (196 cells). Districts: 14 of 14 cells each. Win Condition: Win 8 or more districts AND achieve an efficiency gap of at least +0.15 in Jerry's favor (FR-3.8). This forces the player to win by thin margins rather than by packing, demonstrating the metric courts use to detect gerrymandering. (The seat and gap targets are solver-tuned constants per FR-5.3; loosen the gap first if no map satisfies both.)
 
 ## Open Questions
 
-1. **Compactness Algorithm:** What exact formula maps the discrete perimeter-to-area edge count ratio directly into standard letter-grade distributions (A-F) without breaking the level solver?
+1. **Compactness Algorithm:** The metric is a discrete perimeter-to-area edge-count ratio with per-level, solver-calibrated A–F cutoffs (FR-3.5). Remaining question: the exact ratio-to-grade mapping, to be finalized during implementation and tuned so a C-or-higher solution stays reachable.
 2. **Level Loading Schema:** Will level maps be shipped as standard serialized JSON files or inline Python dictionaries?
