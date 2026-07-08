@@ -30,6 +30,8 @@ Two independent halves with a hard boundary: an **offline Python engine** (build
 - Generates each level's grid geometry, per-cell party affiliations (Jerry strictly < 50%, FR-1.2), and any fixed/void cells (FR-1.6).
 - Runs **reverse constraint satisfaction**: searches for at least one partition into `K` contiguous, equal-size districts that meets the win condition, so every shipped level is provably solvable (FR-5.3). If none exists, the level is rejected, not shipped.
 - Validates the reference solution with the same rule logic the client enforces (contiguity, parity, coverage, district count — FR-3.1–3.4) plus level-specific metrics (compactness FR-3.5, efficiency gap FR-3.8).
+- Owns the placement of Level 5's void "lake": it chooses the specific contiguous interior void cells (12 of them, shape not fixed in the spec) subject to solvability and to forcing districts to route around the barrier (FR-1.6, Level 5).
+- When an aspirational target is infeasible, the engine may relax level-specific thresholds within authorized bounds and record the *achieved* value in the emitted JSON. For Level 6 this means loosening the required efficiency gap in steps (gap before the seat count, which stays fixed at 8) and committing the final required gap to `winCondition.minEfficiencyGap` (FR-3.8, Level 6).
 - Emits static JSON (below). This is the *only* output; the engine ships nothing else to runtime.
 
 **React client** (`web/`). **Completely stateless regarding map generation** — it never generates, solves, or reverse-engineers maps. It only:
@@ -60,7 +62,7 @@ A `manifest.json` lists levels in unlock order (FR-5.1); each level is one file.
   "winCondition": {               // FR-4.3
     "minSeats": 3,                // Jerry districts required
     "compactnessMinGrade": null,  // "C" for L4 (FR-3.5), else null
-    "minEfficiencyGap": null      // 0.15 for L6 (FR-3.8), else null
+    "minEfficiencyGap": null      // L6: solver-committed required gap (target +0.15, may be loosened), FR-3.8; else null
   },
   "cells": [
     // id: stable index. party: "jerry" | "opponent". geometry per shape:
@@ -74,7 +76,7 @@ A `manifest.json` lists levels in unlock order (FR-5.1); each level is one file.
 }
 ```
 
-Void cells (FR-1.6, Level 5 lake) are either omitted from `cells` or flagged `"void": true` and excluded from `adjacency`; they render as terrain and are never graph vertices. `referenceSolution` proves solvability but the client does not reveal it.
+Void cells (FR-1.6, Level 5 lake) are either omitted from `cells` or flagged `"void": true` and excluded from `adjacency`; they render as terrain and are never graph vertices. The specific void cells for Level 5 are chosen by the engine at generation time (shape not fixed in the spec); the committed JSON is authoritative for which cells are void. `referenceSolution` proves solvability but the client does not reveal it.
 
 ### Runtime session state (no database)
 

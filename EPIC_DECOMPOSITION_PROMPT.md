@@ -12,6 +12,8 @@ Precedence means: if two files disagree, the higher one wins (`REQUIREMENTS.md` 
 
 Do not infer requirements that are not present in these files. If a needed detail is missing or ambiguous, do NOT guess. Collect it under an "Open Questions" section and stop short of fabricating scope. Note that `REQUIREMENTS.md` and `ARCHITECTURE.md` already contain their own "Open Questions" sections; carry those forward and add any new ones you discover, but do not invent scope to resolve them.
 
+As of the latest spec pass, the only carried-forward open item is the **deferred** compactness ratio-to-grade cutoffs in FR-3.5 (rule fixed; exact numeric cutoffs tuned during solver calibration). The following are now resolved and should NOT be re-listed as open: the level-loading schema (static JSON files, per `ARCHITECTURE.md`), the Level 5 void-lake shape (12 cells, solver-chosen at generation time and committed to the level JSON), and the Level 6 efficiency-gap target (seats fixed at 8; +0.15 gap aspirational, solver may loosen the gap, committed value in `winCondition.minEfficiencyGap` is authoritative).
+
 ## Output
 
 - Produce one parent epic and a set of sub-issues, all as GitHub-flavored Markdown, as detailed and granular as possible, ready to paste or create via `gh issue create`.
