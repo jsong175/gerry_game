@@ -8,12 +8,13 @@
 import type { Assignment, Grade, Level, ValidationResult } from "../types";
 
 // Compactness A-F cutoffs on the mean perimeter-to-area ratio (FR-3.5).
-// Must match COMPACTNESS_CUTOFFS in engine/rules.py verbatim.
+// Tightened after playtest so a stretched 1x10 row (ratio 2.2) grades D instead of
+// squeaking through as a C. Must match COMPACTNESS_CUTOFFS in engine/rules.py verbatim.
 const COMPACTNESS_CUTOFFS: [Grade, number][] = [
-  ["A", 1.6],
-  ["B", 2.0],
-  ["C", 2.4],
-  ["D", 2.8],
+  ["A", 1.5],
+  ["B", 1.9],
+  ["C", 2.1],
+  ["D", 2.5],
 ];
 const GRADE_ORDER: Grade[] = ["A", "B", "C", "D", "F"];
 const SQUARE_FULL_DEGREE = 4;

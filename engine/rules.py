@@ -18,14 +18,17 @@ from collections import deque
 
 # Compactness A-F cutoffs on the mean perimeter-to-area edge ratio (FR-3.5).
 # Lower ratio == more compact. These are the implementation-time calibration of
-# the deferred cutoffs (REQUIREMENTS.md Open Questions): a 5x2 block district
-# scores 1.4 (A); a stretched 1x10 row scores 2.2 (C). Tuned so a C-or-higher
-# solution stays reachable. Mirrored verbatim in rules.ts.
+# the deferred cutoffs (REQUIREMENTS.md Open Questions), tightened after playtest:
+# a stretched 1x10 row scores 2.2 and used to squeak through as a C, so visibly
+# wonky tentacle districts passed The Report Card. C now sits below that at 2.1,
+# which drops the row to a D while leaving a C comfortably reachable — a 5x2 block
+# scores 1.4 (A) and Level 4's reference solution averages 1.74 (B).
+# Mirrored verbatim in rules.ts.
 COMPACTNESS_CUTOFFS: list[tuple[str, float]] = [
-    ("A", 1.6),
-    ("B", 2.0),
-    ("C", 2.4),
-    ("D", 2.8),
+    ("A", 1.5),
+    ("B", 1.9),
+    ("C", 2.1),
+    ("D", 2.5),
 ]
 _GRADE_ORDER = ["A", "B", "C", "D", "F"]
 # Full degree of a cell for perimeter accounting (square geometry, Level 4).

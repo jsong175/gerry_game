@@ -35,6 +35,41 @@ def test_level4_compactness_at_least_c():
     assert rules.grade_at_least(result["compactnessGrade"], "C")
 
 
+def test_losing_and_incomplete_partitions_are_not_solved():
+    """FR-4.4: SOLVED requires every applicable rule AND the seat target."""
+    level = build_level(LEVEL_SPECS[0])  # L1
+    assert rules.validate(level, {})["solved"] is False  # empty board
+    # Complete, legal, but Jerry misses the seat target: four columns.
+    cols = {r * 4 + c: c for c in range(4) for r in range(4)}
+    result = rules.validate(level, cols)
+    assert result["complete"] and not result["seatsOk"]
+    assert not result["solved"]
+    # Incomplete: drop one district's worth of cells.
+    partial = {cid: did for did, m in enumerate(level["referenceSolution"][:3]) for cid in m}
+    assert not rules.validate(level, partial)["solved"]
+    # The genuine solution is SOLVED.
+    assert rules.validate(level, _ref_assignment(level))["solved"]
+
+
+def test_level4_rows_are_complete_but_not_solved_on_compactness():
+    """A partition can pass every structural rule and still lose on FR-3.5."""
+    level = build_level(LEVEL_SPECS[3])
+    rows = {r * 10 + c: r for r in range(10) for c in range(10)}
+    result = rules.validate(level, rows)
+    assert result["complete"]
+    assert result["perRule"]["compactness"] is False
+    assert not result["solved"]
+
+
+def test_level4_all_rows_carve_up_now_fails_the_report_card():
+    """FR-3.5: ten 1x10 tentacles must not earn a C on The Report Card."""
+    level = build_level(LEVEL_SPECS[3])
+    adj = rules.build_adjacency(level)
+    rows = {r: [r * 10 + c for c in range(10)] for r in range(10)}
+    grade, _ = rules.compactness(adj, rows)
+    assert not rules.grade_at_least(grade, "C"), f"all-rows still grades {grade}"
+
+
 def test_level5_has_twelve_void_cells():
     level = build_level(LEVEL_SPECS[4])
     voids = [c for c in level["cells"] if c["void"]]

@@ -57,11 +57,40 @@ body {
   overflow: hidden;
 }
 
+/* Everything except the board keeps its natural height; the board is the only
+   thing that gives, so the submit button can never be pushed off-screen. */
 .play > .topbar,
 .play > .hud,
 .play > .toast,
 .play > .bottombar {
   flex: 0 0 auto;
+}
+
+/* Victory and Defeat are overlays *above* the board (DESIGN.md "Win & Loss
+   Screens"), not extra rows in the play column. As in-flow flex children they
+   collapsed the grid to nothing and pushed their own action button below the
+   fold, where `.play { overflow: hidden }` silently clipped it. Taking them out
+   of flow keeps the play view behind them untouched (FR-4.6: the player returns
+   to their exact board). `overflow-y: auto` is a last-resort guard so the card
+   stays reachable on a viewport too short to hold it. */
+.screen.result {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  min-height: 0;
+  overflow-y: auto;
+  background: var(--bg);
+  /* `margin: auto` on the card centres it without the flexbox quirk where
+     `justify-content: center` makes overflow unreachable off the top edge. */
+  justify-content: flex-start;
+}
+
+.screen.result .card {
+  max-width: 432px;
+  margin: auto;
 }
 
 .tabular,

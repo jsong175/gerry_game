@@ -158,3 +158,104 @@ describe("district-forming interaction (useGame reducer)", () => {
     expect(state.past.length).toBeLessThanOrEqual(15);
   });
 });
+
+// A committed district must be editable no matter what the player did before.
+// The old reducer refused any tap on a district while `active` pointed at another
+// one, so whether an edit "took" depended on invisible leftover state.
+function editCycleSuite(name: string, lvl: Level) {
+  const a = buildAdjacency(lvl);
+  const reduce = makeReducer(lvl, a);
+  const empty: GameState = { assignment: new Map(), active: null, past: [], future: [] };
+  const order = (members: number[]): number[] => {
+    const set = new Set(members);
+    const seen = new Set([members[0]]);
+    const queue = [members[0]];
+    const out: number[] = [];
+    while (queue.length) {
+      const n = queue.shift()!;
+      out.push(n);
+      for (const nb of a.get(n) ?? []) {
+        if (set.has(nb) && !seen.has(nb)) {
+          seen.add(nb);
+          queue.push(nb);
+        }
+      }
+    }
+    return out;
+  };
+  const press = (s: GameState, id: number) => reduce(s, { type: "cellDown", id });
+  const solved = (): GameState => {
+    let s = empty;
+    for (const d of lvl.referenceSolution) for (const id of order(d)) s = press(s, id);
+    return s;
+  };
+
+  describe(`district editing is order-independent (${name})`, () => {
+    it("re-enters edit mode on every committed district, in any order", () => {
+      let state = solved();
+      // Walk the districts twice; each tap must select the district touched.
+      for (const pass of [0, 1]) {
+        for (let d = 0; d < lvl.districtCount; d++) {
+          const cell = lvl.referenceSolution[d][0];
+          state = press(state, cell);
+          expect(state.active, `pass ${pass}, district ${d}`).toBe(d);
+        }
+      }
+    });
+
+    it("removes a cell from any committed district, repeatedly", () => {
+      let state = solved();
+      for (let d = 0; d < lvl.districtCount; d++) {
+        const cell = lvl.referenceSolution[d][0];
+        state = press(state, cell); // enter edit on district d
+        expect(state.active).toBe(d);
+        state = press(state, cell); // remove it (FR-2.2)
+        expect(state.assignment.has(cell), `district ${d} cell not removed`).toBe(false);
+        state = press(state, cell); // put it back; district auto-completes
+        expect(state.assignment.get(cell)).toBe(d);
+        expect(state.active).toBeNull();
+      }
+      expect(state.assignment.size).toBe(lvl.districtCount * lvl.districtSize);
+    });
+
+    it("does not strand the player in edit mode on a full district", () => {
+      // Build exactly one district, tap it to edit, then tap an unassigned cell.
+      let state = empty;
+      for (const id of order(lvl.referenceSolution[0])) state = press(state, id);
+      expect(state.active).toBeNull(); // auto-committed
+
+      state = press(state, lvl.referenceSolution[0][0]);
+      expect(state.active).toBe(0); // re-entered edit on the full district
+
+      const free = lvl.cells.find((c) => !c.void && !c.fixed && !state.assignment.has(c.id))!;
+      state = press(state, free.id);
+      expect(state.assignment.get(free.id), "tapping a free cell must start a district").toBe(1);
+      expect(state.active).toBe(1);
+    });
+
+    it("ignores taps on other districts while a district is still being built", () => {
+      // DESIGN.md: a partial district keeps focus; it is not abandoned by a stray tap.
+      let state = solved();
+      const victim = lvl.referenceSolution[0][0];
+      state = press(state, victim); // edit district 0
+      state = press(state, victim); // remove -> district 0 is now incomplete
+      expect(state.active).toBe(0);
+
+      const otherCell = lvl.referenceSolution[1][0];
+      const before = state.assignment.get(otherCell);
+      state = press(state, otherCell);
+      expect(state.active, "must stay on the unfinished district").toBe(0);
+      expect(state.assignment.get(otherCell)).toBe(before);
+    });
+  });
+}
+
+editCycleSuite("square level L1", level);
+editCycleSuite(
+  "triangular level L3",
+  parseLevel(
+    JSON.parse(
+      readFileSync(fileURLToPath(new URL("../../public/levels/L3.json", import.meta.url)), "utf-8"),
+    ),
+  ),
+);

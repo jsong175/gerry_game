@@ -93,6 +93,31 @@ def test_compactness_block_beats_row():
     assert rules.grade_at_least(grade_block, "C")
 
 
+def test_stretched_row_district_grades_below_c():
+    """FR-3.5: a 1x10 tentacle is visibly non-compact and MUST fail the C bar.
+
+    Under the original cutoffs (C <= 2.4) its ratio of 2.2 squeaked through as a C,
+    so the all-rows carve-up of Level 4 passed the Report Card.
+    """
+    level = make_square_level(["o" * 10, "o" * 10], 2, 10)
+    adj = rules.build_adjacency(level)
+    grade, ratio = rules.compactness(adj, {0: list(range(10))})
+    assert ratio == 2.2
+    assert not rules.grade_at_least(grade, "C"), f"1x10 row still passes as {grade}"
+
+
+def test_reasonable_districts_still_earn_c_or_better():
+    """The tightening must not put a C out of reach (FR-3.5)."""
+    level = make_square_level(["o" * 10, "o" * 10], 2, 10)
+    adj = rules.build_adjacency(level)
+    # A 5x2 block is the ideal shape; an L-shaped but chunky district is still fine.
+    block = [0, 1, 2, 3, 4, 10, 11, 12, 13, 14]
+    assert rules.compactness(adj, {0: block})[0] == "A"
+    # 2x4 block plus a 1x2 nub: perimeter 14 over area 10 -> ratio 1.4.
+    chunky = [0, 1, 2, 3, 10, 11, 12, 13, 4, 14]
+    assert rules.grade_at_least(rules.compactness(adj, {0: chunky})[0], "C")
+
+
 def test_efficiency_gap_favours_jerry_when_opponents_packed():
     # 2 districts of 3. Jerry wins d0 2-1 (thin); opponent wins d1 3-0 (packed).
     party = {0: "jerry", 1: "jerry", 2: "opponent", 3: "opponent", 4: "opponent", 5: "opponent"}

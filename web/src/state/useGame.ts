@@ -85,21 +85,36 @@ export function makeReducer(level: Level, adj: Map<number, Set<number>>) {
       case "cellDown": {
         if (!editable(action.id)) return state;
         const did = state.assignment.get(action.id);
-        if (state.active === null) {
-          if (did !== undefined) return { ...state, active: did }; // re-enter edit
-          const fresh = nextId(state.assignment);
-          if (fresh === null) return state; // no room for a new district
-          const next = new Map(state.assignment);
-          next.set(action.id, fresh);
-          return applyEdit(state, next, fresh);
+        const A = state.active;
+        // "Building" means a district is part-way through being drawn. A district
+        // that is empty or already full is not under construction, so it never
+        // blocks the next tap — otherwise whether an edit lands depends on
+        // leftover `active` state the player cannot see.
+        const filled = A === null ? 0 : sizeOf(state.assignment, A);
+        const building = A !== null && filled > 0 && filled < size;
+
+        if (did !== undefined) {
+          if (did === A) {
+            const next = new Map(state.assignment);
+            next.delete(action.id); // remove -> unassigned (FR-2.2)
+            return applyEdit(state, next, A);
+          }
+          // Tapping any other district re-enters edit mode on it (DESIGN.md
+          // "Editing a district"), unless one is still being drawn — a stray tap
+          // must not abandon a partial district.
+          if (building) return state;
+          return { ...state, active: did };
         }
-        if (did === state.active) {
-          const next = new Map(state.assignment);
-          next.delete(action.id); // remove -> unassigned (FR-2.2)
-          return applyEdit(state, next, state.active);
-        }
-        if (did === undefined) return tryAdd(state, action.id, false);
-        return state; // tap on a different district while building: ignore
+
+        // Unassigned cell: extend the district under construction...
+        if (building) return tryAdd(state, action.id, false);
+        // ...otherwise start a new one. Reached when nothing is active, or when the
+        // active district is already complete and must not swallow another cell.
+        const fresh = nextId(state.assignment);
+        if (fresh === null) return state; // no room for a new district
+        const next = new Map(state.assignment);
+        next.set(action.id, fresh);
+        return applyEdit(state, next, fresh);
       }
       case "cellEnter": {
         if (!editable(action.id)) return state;

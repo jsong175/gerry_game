@@ -5,7 +5,7 @@
 
 import { useMemo, useState } from "react";
 
-import type { Level } from "../types";
+import type { Level, ValidationResult } from "../types";
 import { buildAdjacency, checkContiguity, districtGroups } from "../rules/rules";
 import { useGame } from "../state/useGame";
 import { Grid } from "./Grid";
@@ -13,6 +13,11 @@ import { Hud } from "./Hud";
 import { DefeatScreen, VictoryScreen } from "./ResultScreens";
 
 type Result = "none" | "victory" | "defeat";
+
+/** Which card a submitted partition earns (FR-4.4). Victory only when SOLVED. */
+export function outcomeFor(validation: ValidationResult): "victory" | "defeat" {
+  return validation.solved ? "victory" : "defeat";
+}
 
 export function PlayScreen({
   level,
@@ -39,12 +44,9 @@ export function PlayScreen({
   }, [level, game.assignment]);
 
   const submit = () => {
-    if (game.validation.solved) {
-      onWin(level.id);
-      setResult("victory");
-    } else {
-      setResult("defeat");
-    }
+    const outcome = outcomeFor(game.validation);
+    if (outcome === "victory") onWin(level.id);
+    setResult(outcome);
   };
 
   return (

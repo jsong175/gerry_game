@@ -4884,7 +4884,7 @@
         "parity": true,
         "coverage": true,
         "districtCount": true,
-        "compactness": true,
+        "compactness": false,
         "efficiencyGap": null
       },
       "offendingDistricts": [],
@@ -4893,7 +4893,7 @@
       "seats": 2,
       "minSeats": 6,
       "seatsOk": false,
-      "compactnessGrade": "C",
+      "compactnessGrade": "D",
       "efficiencyGap": null,
       "solved": false
     }
