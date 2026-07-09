@@ -2,7 +2,7 @@
 // per level for the intro card, plus Jerry's victory/defeat lines.
 
 export const LEVEL_INTRO: Record<string, string> = {
-  L1: "Welcome aboard, intern! The No Good Party is outnumbered — but seats are won district by district, not by total votes. Pack the Puppies voters into a few crowded districts and crack the rest so our thin red majorities carry more seats than our votes deserve.",
+  L1: "Welcome aboard, intern! The No Good Party is outnumbered — but seats are won district by district, not by total votes. Pack the Sunshines and Rainbows voters into a few crowded districts and crack the rest so our thin red majorities carry more seats than our votes deserve.",
   L2: "Same trick, bigger map. On this 8×8 sprawl you'll pack and crack across sixty-four voters. Waste their votes; stretch ours just far enough to win.",
   L3: "The regulators switched to triangular districts to trip us up. Triangles only touch along shared edges, so plan your contiguous districts carefully around who borders whom.",
   L4: "New rule: the Report Card. Districts are now graded on compactness (a perimeter-to-area score). No more absurd tentacle shapes — you must win your seats with tidy, C-or-better districts.",
