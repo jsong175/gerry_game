@@ -1,0 +1,50 @@
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  engine:
+    name: Engine (pytest + verify_levels)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install -r engine/requirements.txt
+      - name: Run engine tests (coverage gate 80%)
+        run: python -m pytest
+      - name: Verify committed level JSON (FR-5.3)
+        run: python -m engine.verify_levels
+      - name: Committed levels are reproducible from the generator
+        run: |
+          python -m engine.build_levels
+          python -m engine.export_fixtures
+          git diff --exit-code web/public/levels engine/fixtures \
+            || (echo "::error::Committed levels/fixtures are stale — re-run build_levels + export_fixtures" && exit 1)
+
+  web:
+    name: Web (typecheck + vitest + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - name: Install
+        run: npm ci
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit + parity tests
+        run: npm test
+      - name: Production build
+        run: npm run build

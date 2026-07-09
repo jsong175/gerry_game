@@ -1,0 +1,34 @@
+{
+  "levels": [
+    {
+      "id": "L1",
+      "name": "The Basics of Packing and Cracking",
+      "file": "L1.json"
+    },
+    {
+      "id": "L2",
+      "name": "The Sprawl",
+      "file": "L2.json"
+    },
+    {
+      "id": "L3",
+      "name": "The Triangle Trap",
+      "file": "L3.json"
+    },
+    {
+      "id": "L4",
+      "name": "The Report Card",
+      "file": "L4.json"
+    },
+    {
+      "id": "L5",
+      "name": "The Natural Barrier",
+      "file": "L5.json"
+    },
+    {
+      "id": "L6",
+      "name": "The Efficiency Gap",
+      "file": "L6.json"
+    }
+  ]
+}

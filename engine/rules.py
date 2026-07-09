@@ -1,0 +1,241 @@
+"""Shared rule / validation logic (FR-3, FR-4).
+
+This is the *source of truth* for the game's rules. The React client re-implements
+the identical semantics in TypeScript (``web/src/rules/rules.ts``); a shared fixture
+set (``engine/fixtures/rule_cases.json``) pins the two implementations together so
+they cannot disagree (ARCHITECTURE.md "The rule-checking code ... exists on both sides").
+
+All functions are pure and independently testable (FR-3.6) and report the specific
+offending districts/cells so failures are diagnosable (FR-3.7).
+
+A *level* is the dict deserialized from a level JSON file. An *assignment* maps
+``cellId -> districtId`` and omits unassigned cells (FR-1.3).
+"""
+
+from __future__ import annotations
+
+from collections import deque
+
+# Compactness A-F cutoffs on the mean perimeter-to-area edge ratio (FR-3.5).
+# Lower ratio == more compact. These are the implementation-time calibration of
+# the deferred cutoffs (REQUIREMENTS.md Open Questions): a 5x2 block district
+# scores 1.4 (A); a stretched 1x10 row scores 2.2 (C). Tuned so a C-or-higher
+# solution stays reachable. Mirrored verbatim in rules.ts.
+COMPACTNESS_CUTOFFS: list[tuple[str, float]] = [
+    ("A", 1.6),
+    ("B", 2.0),
+    ("C", 2.4),
+    ("D", 2.8),
+]
+_GRADE_ORDER = ["A", "B", "C", "D", "F"]
+# Full degree of a cell for perimeter accounting (square geometry, Level 4).
+_SQUARE_FULL_DEGREE = 4
+
+
+def build_adjacency(level: dict) -> dict[int, set[int]]:
+    """cellId -> set of adjacent cellIds, from the JSON ``adjacency`` edge list."""
+    adj: dict[int, set[int]] = {}
+    for cell in level["cells"]:
+        if not cell.get("void"):
+            adj[cell["id"]] = set()
+    for a, b in level["adjacency"]:
+        adj.setdefault(a, set()).add(b)
+        adj.setdefault(b, set()).add(a)
+    return adj
+
+
+def assignable_ids(level: dict) -> set[int]:
+    return {c["id"] for c in level["cells"] if not c.get("void")}
+
+
+def party_map(level: dict) -> dict[int, str]:
+    return {c["id"]: c["party"] for c in level["cells"] if not c.get("void")}
+
+
+def district_groups(assignment: dict[int, int]) -> dict[int, list[int]]:
+    """districtId -> list of cellIds (only non-empty districts)."""
+    groups: dict[int, list[int]] = {}
+    for cid, did in assignment.items():
+        if did is None:
+            continue
+        groups.setdefault(did, []).append(cid)
+    return groups
+
+
+# --- Individual rules (FR-3.6: each independently testable) -------------------
+
+
+def check_contiguity(adj: dict[int, set[int]], groups: dict[int, list[int]]):
+    """FR-3.1. Returns (ok, offending_district_ids, offending_cell_ids)."""
+    bad_districts: list[int] = []
+    bad_cells: list[int] = []
+    for did, members in groups.items():
+        member_set = set(members)
+        start = members[0]
+        seen = {start}
+        queue = deque([start])
+        while queue:
+            node = queue.popleft()
+            for nb in adj.get(node, ()):  # noqa: B007
+                if nb in member_set and nb not in seen:
+                    seen.add(nb)
+                    queue.append(nb)
+        if len(seen) != len(member_set):
+            # Flag the whole district so the client can highlight it as one unit
+            # (DESIGN.md "Violation diagnostics").
+            bad_districts.append(did)
+            bad_cells.extend(sorted(member_set))
+    return (not bad_districts, sorted(bad_districts), sorted(bad_cells))
+
+
+def check_parity(groups: dict[int, list[int]], size: int):
+    """FR-3.2. Every district has exactly ``size`` cells (deviation 0)."""
+    bad = sorted(did for did, m in groups.items() if len(m) != size)
+    return (not bad, bad)
+
+
+def check_coverage(assignable: set[int], assignment: dict[int, int]):
+    """FR-3.3. Every assignable cell assigned exactly once; no void assigned."""
+    assigned = {cid for cid, did in assignment.items() if did is not None}
+    unassigned = assignable - assigned
+    void_assigned = assigned - assignable
+    offending = sorted(unassigned | void_assigned)
+    return (not offending, offending)
+
+
+def check_district_count(groups: dict[int, list[int]], k: int):
+    """FR-3.4. Number of non-empty districts equals K."""
+    return len(groups) == k
+
+
+def district_winner(members: list[int], party: dict[int, str]) -> str | None:
+    """FR-4.1 / FR-4.2. Strict-majority winner, or None for a tie / no winner."""
+    jerry = sum(1 for c in members if party[c] == "jerry")
+    opp = len(members) - jerry
+    if jerry > opp:
+        return "jerry"
+    if opp > jerry:
+        return "opponent"
+    return None
+
+
+def seat_count(groups: dict[int, list[int]], party: dict[int, str]) -> int:
+    """FR-4.5. Districts won by Jerry."""
+    return sum(1 for m in groups.values() if district_winner(m, party) == "jerry")
+
+
+def compactness(adj: dict[int, set[int]], groups: dict[int, list[int]]):
+    """FR-3.5. Mean perimeter-to-area ratio -> letter grade. (grade, mean_ratio)."""
+    if not groups:
+        return ("F", 0.0)
+    ratios = []
+    for members in groups.values():
+        member_set = set(members)
+        perimeter = 0
+        for cell in members:
+            same = sum(1 for nb in adj.get(cell, ()) if nb in member_set)
+            perimeter += _SQUARE_FULL_DEGREE - same
+        ratios.append(perimeter / len(members))
+    mean_ratio = sum(ratios) / len(ratios)
+    grade = "F"
+    for letter, cutoff in COMPACTNESS_CUTOFFS:
+        if mean_ratio <= cutoff:
+            grade = letter
+            break
+    return (grade, mean_ratio)
+
+
+def grade_at_least(grade: str, minimum: str) -> bool:
+    return _GRADE_ORDER.index(grade) <= _GRADE_ORDER.index(minimum)
+
+
+def efficiency_gap(groups: dict[int, list[int]], party: dict[int, str], total: int):
+    """FR-3.8. (opponent_wasted - jerry_wasted) / total_cells; higher favours Jerry."""
+    jerry_wasted = 0
+    opp_wasted = 0
+    for members in groups.values():
+        jerry = sum(1 for c in members if party[c] == "jerry")
+        opp = len(members) - jerry
+        threshold = len(members) // 2 + 1
+        winner = district_winner(members, party)
+        if winner == "jerry":
+            jerry_wasted += jerry - threshold
+            opp_wasted += opp
+        elif winner == "opponent":
+            opp_wasted += opp - threshold
+            jerry_wasted += jerry
+        else:  # tie: no winner, every vote wasted
+            jerry_wasted += jerry
+            opp_wasted += opp
+    if total == 0:
+        return 0.0
+    return (opp_wasted - jerry_wasted) / total
+
+
+# --- Composite evaluation (FR-4.4) --------------------------------------------
+
+
+def validate(level: dict, assignment: dict[int, int]) -> dict:
+    """Full evaluation used by both the engine (reference) and the client (live).
+
+    Returns per-rule pass/fail, offending districts/cells (FR-3.7), the seat
+    tally (FR-4.5), and SOLVED/NOT SOLVED (FR-4.4).
+    """
+    adj = build_adjacency(level)
+    assignable = assignable_ids(level)
+    party = party_map(level)
+    size = level["districtSize"]
+    k = level["districtCount"]
+    win = level["winCondition"]
+
+    # Filter assignment to real, assignable cells for rule evaluation.
+    clean = {cid: did for cid, did in assignment.items() if did is not None}
+    groups = district_groups(clean)
+
+    contig_ok, bad_contig_d, bad_contig_c = check_contiguity(adj, groups)
+    parity_ok, bad_parity_d = check_parity(groups, size)
+    coverage_ok, bad_coverage_c = check_coverage(assignable, clean)
+    count_ok = check_district_count(groups, k)
+
+    complete = parity_ok and coverage_ok and count_ok and contig_ok
+    seats = seat_count(groups, party)
+
+    per_rule: dict[str, bool | None] = {
+        "contiguity": contig_ok,
+        "parity": parity_ok,
+        "coverage": coverage_ok,
+        "districtCount": count_ok,
+        "compactness": None,
+        "efficiencyGap": None,
+    }
+    offending_districts = sorted(set(bad_contig_d) | set(bad_parity_d))
+    offending_cells = sorted(set(bad_contig_c) | set(bad_coverage_c))
+
+    grade = None
+    gap = None
+    # Level-specific metrics are only meaningful on a structurally complete board.
+    min_grade = win.get("compactnessMinGrade")
+    if min_grade is not None:
+        grade, _ = compactness(adj, groups)
+        per_rule["compactness"] = complete and grade_at_least(grade, min_grade)
+    min_gap = win.get("minEfficiencyGap")
+    if min_gap is not None:
+        gap = efficiency_gap(groups, party, len(assignable))
+        per_rule["efficiencyGap"] = complete and gap >= min_gap
+
+    seats_ok = seats >= win["minSeats"]
+    rules_ok = all(v for v in per_rule.values() if v is not None)
+    solved = complete and rules_ok and seats_ok
+
+    return {
+        "perRule": per_rule,
+        "offendingDistricts": offending_districts,
+        "offendingCells": offending_cells,
+        "complete": complete,
+        "seats": seats,
+        "minSeats": win["minSeats"],
+        "seatsOk": seats_ok,
+        "compactnessGrade": grade,
+        "efficiencyGap": gap,
+        "solved": solved,
+    }

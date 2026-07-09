@@ -1,0 +1,572 @@
+{
+  "id": "L3",
+  "name": "The Triangle Trap",
+  "shape": "triangle",
+  "gridWidth": 11,
+  "gridHeight": 6,
+  "districtCount": 6,
+  "districtSize": 6,
+  "winCondition": {
+    "minSeats": 4,
+    "compactnessMinGrade": null,
+    "minEfficiencyGap": null
+  },
+  "cells": [
+    {
+      "id": 0,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 0,
+      "col": 0,
+      "orient": "up"
+    },
+    {
+      "id": 1,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 1,
+      "col": 0,
+      "orient": "up"
+    },
+    {
+      "id": 2,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 1,
+      "col": 1,
+      "orient": "down"
+    },
+    {
+      "id": 3,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 1,
+      "col": 2,
+      "orient": "up"
+    },
+    {
+      "id": 4,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 2,
+      "col": 0,
+      "orient": "up"
+    },
+    {
+      "id": 5,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 2,
+      "col": 1,
+      "orient": "down"
+    },
+    {
+      "id": 6,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 2,
+      "col": 2,
+      "orient": "up"
+    },
+    {
+      "id": 7,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 2,
+      "col": 3,
+      "orient": "down"
+    },
+    {
+      "id": 8,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 2,
+      "col": 4,
+      "orient": "up"
+    },
+    {
+      "id": 9,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 3,
+      "col": 0,
+      "orient": "up"
+    },
+    {
+      "id": 10,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 3,
+      "col": 1,
+      "orient": "down"
+    },
+    {
+      "id": 11,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 3,
+      "col": 2,
+      "orient": "up"
+    },
+    {
+      "id": 12,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 3,
+      "col": 3,
+      "orient": "down"
+    },
+    {
+      "id": 13,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 3,
+      "col": 4,
+      "orient": "up"
+    },
+    {
+      "id": 14,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 3,
+      "col": 5,
+      "orient": "down"
+    },
+    {
+      "id": 15,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 3,
+      "col": 6,
+      "orient": "up"
+    },
+    {
+      "id": 16,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 0,
+      "orient": "up"
+    },
+    {
+      "id": 17,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 1,
+      "orient": "down"
+    },
+    {
+      "id": 18,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 2,
+      "orient": "up"
+    },
+    {
+      "id": 19,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 3,
+      "orient": "down"
+    },
+    {
+      "id": 20,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 4,
+      "orient": "up"
+    },
+    {
+      "id": 21,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 5,
+      "orient": "down"
+    },
+    {
+      "id": 22,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 6,
+      "orient": "up"
+    },
+    {
+      "id": 23,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 7,
+      "orient": "down"
+    },
+    {
+      "id": 24,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 4,
+      "col": 8,
+      "orient": "up"
+    },
+    {
+      "id": 25,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 0,
+      "orient": "up"
+    },
+    {
+      "id": 26,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 1,
+      "orient": "down"
+    },
+    {
+      "id": 27,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 2,
+      "orient": "up"
+    },
+    {
+      "id": 28,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 3,
+      "orient": "down"
+    },
+    {
+      "id": 29,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 4,
+      "orient": "up"
+    },
+    {
+      "id": 30,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 5,
+      "orient": "down"
+    },
+    {
+      "id": 31,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 6,
+      "orient": "up"
+    },
+    {
+      "id": 32,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 7,
+      "orient": "down"
+    },
+    {
+      "id": 33,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 8,
+      "orient": "up"
+    },
+    {
+      "id": 34,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 9,
+      "orient": "down"
+    },
+    {
+      "id": 35,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "row": 5,
+      "col": 10,
+      "orient": "up"
+    }
+  ],
+  "adjacency": [
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      7
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      4,
+      10
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      6,
+      12
+    ],
+    [
+      7,
+      8
+    ],
+    [
+      8,
+      14
+    ],
+    [
+      9,
+      10
+    ],
+    [
+      9,
+      17
+    ],
+    [
+      10,
+      11
+    ],
+    [
+      11,
+      12
+    ],
+    [
+      11,
+      19
+    ],
+    [
+      12,
+      13
+    ],
+    [
+      13,
+      14
+    ],
+    [
+      13,
+      21
+    ],
+    [
+      14,
+      15
+    ],
+    [
+      15,
+      23
+    ],
+    [
+      16,
+      17
+    ],
+    [
+      16,
+      26
+    ],
+    [
+      17,
+      18
+    ],
+    [
+      18,
+      19
+    ],
+    [
+      18,
+      28
+    ],
+    [
+      19,
+      20
+    ],
+    [
+      20,
+      21
+    ],
+    [
+      20,
+      30
+    ],
+    [
+      21,
+      22
+    ],
+    [
+      22,
+      23
+    ],
+    [
+      22,
+      32
+    ],
+    [
+      23,
+      24
+    ],
+    [
+      24,
+      34
+    ],
+    [
+      25,
+      26
+    ],
+    [
+      26,
+      27
+    ],
+    [
+      27,
+      28
+    ],
+    [
+      28,
+      29
+    ],
+    [
+      29,
+      30
+    ],
+    [
+      30,
+      31
+    ],
+    [
+      31,
+      32
+    ],
+    [
+      32,
+      33
+    ],
+    [
+      33,
+      34
+    ],
+    [
+      34,
+      35
+    ]
+  ],
+  "referenceSolution": [
+    [
+      15,
+      23,
+      24,
+      33,
+      34,
+      35
+    ],
+    [
+      0,
+      1,
+      2,
+      3,
+      7,
+      8
+    ],
+    [
+      13,
+      14,
+      21,
+      22,
+      31,
+      32
+    ],
+    [
+      16,
+      25,
+      26,
+      27,
+      28,
+      29
+    ],
+    [
+      9,
+      17,
+      18,
+      19,
+      20,
+      30
+    ],
+    [
+      4,
+      5,
+      6,
+      10,
+      11,
+      12
+    ]
+  ]
+}

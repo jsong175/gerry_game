@@ -1,0 +1,10801 @@
+[
+  {
+    "name": "tiny_solved",
+    "level": {
+      "id": "TINY",
+      "name": "tiny",
+      "shape": "square",
+      "gridWidth": 2,
+      "gridHeight": 2,
+      "districtCount": 2,
+      "districtSize": 2,
+      "winCondition": {
+        "minSeats": 1,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 3,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "referenceSolution": []
+    },
+    "assignment": {
+      "0": 0,
+      "1": 0,
+      "2": 1,
+      "3": 1
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 1,
+      "minSeats": 1,
+      "seatsOk": true,
+      "compactnessGrade": null,
+      "efficiencyGap": null,
+      "solved": true
+    }
+  },
+  {
+    "name": "tiny_broken_contiguity",
+    "level": {
+      "id": "TINY",
+      "name": "tiny",
+      "shape": "square",
+      "gridWidth": 2,
+      "gridHeight": 2,
+      "districtCount": 2,
+      "districtSize": 2,
+      "winCondition": {
+        "minSeats": 1,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 3,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "referenceSolution": []
+    },
+    "assignment": {
+      "0": 0,
+      "3": 0,
+      "1": 1,
+      "2": 1
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": false,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [
+        0,
+        1
+      ],
+      "offendingCells": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "complete": false,
+      "seats": 0,
+      "minSeats": 1,
+      "seatsOk": false,
+      "compactnessGrade": null,
+      "efficiencyGap": null,
+      "solved": false
+    }
+  },
+  {
+    "name": "tiny_incomplete",
+    "level": {
+      "id": "TINY",
+      "name": "tiny",
+      "shape": "square",
+      "gridWidth": 2,
+      "gridHeight": 2,
+      "districtCount": 2,
+      "districtSize": 2,
+      "winCondition": {
+        "minSeats": 1,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 3,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "referenceSolution": []
+    },
+    "assignment": {
+      "0": 0,
+      "1": 0,
+      "2": 1
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": false,
+        "coverage": false,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [
+        1
+      ],
+      "offendingCells": [
+        3
+      ],
+      "complete": false,
+      "seats": 1,
+      "minSeats": 1,
+      "seatsOk": true,
+      "compactnessGrade": null,
+      "efficiencyGap": null,
+      "solved": false
+    }
+  },
+  {
+    "name": "tie_no_winner",
+    "level": {
+      "id": "TINY",
+      "name": "tiny",
+      "shape": "square",
+      "gridWidth": 2,
+      "gridHeight": 2,
+      "districtCount": 1,
+      "districtSize": 4,
+      "winCondition": {
+        "minSeats": 1,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 3,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          2,
+          3
+        ]
+      ],
+      "referenceSolution": []
+    },
+    "assignment": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 0,
+      "minSeats": 1,
+      "seatsOk": false,
+      "compactnessGrade": null,
+      "efficiencyGap": null,
+      "solved": false
+    }
+  },
+  {
+    "name": "L1_reference",
+    "level": {
+      "id": "L1",
+      "name": "The Basics of Packing and Cracking",
+      "shape": "square",
+      "gridWidth": 4,
+      "gridHeight": 4,
+      "districtCount": 4,
+      "districtSize": 4,
+      "winCondition": {
+        "minSeats": 2,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 0
+        },
+        {
+          "id": 3,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 0
+        },
+        {
+          "id": 4,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 5,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        },
+        {
+          "id": 6,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 1
+        },
+        {
+          "id": 7,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 1
+        },
+        {
+          "id": 8,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 2
+        },
+        {
+          "id": 9,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 2
+        },
+        {
+          "id": 10,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 2
+        },
+        {
+          "id": 11,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 2
+        },
+        {
+          "id": 12,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 3
+        },
+        {
+          "id": 13,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 3
+        },
+        {
+          "id": 14,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 3
+        },
+        {
+          "id": 15,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 3
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          8
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          9
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          12
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          13
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          14
+        ],
+        [
+          11,
+          15
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          14,
+          15
+        ]
+      ],
+      "referenceSolution": [
+        [
+          0,
+          1,
+          2,
+          3
+        ],
+        [
+          4,
+          5,
+          6,
+          7
+        ],
+        [
+          8,
+          9,
+          10,
+          11
+        ],
+        [
+          12,
+          13,
+          14,
+          15
+        ]
+      ]
+    },
+    "assignment": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 1,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 2,
+      "9": 2,
+      "10": 2,
+      "11": 2,
+      "12": 3,
+      "13": 3,
+      "14": 3,
+      "15": 3
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 2,
+      "minSeats": 2,
+      "seatsOk": true,
+      "compactnessGrade": null,
+      "efficiencyGap": null,
+      "solved": true
+    }
+  },
+  {
+    "name": "L3_reference_triangle",
+    "level": {
+      "id": "L3",
+      "name": "The Triangle Trap",
+      "shape": "triangle",
+      "gridWidth": 11,
+      "gridHeight": 6,
+      "districtCount": 6,
+      "districtSize": 6,
+      "winCondition": {
+        "minSeats": 4,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 0,
+          "col": 0,
+          "orient": "up"
+        },
+        {
+          "id": 1,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 1,
+          "col": 0,
+          "orient": "up"
+        },
+        {
+          "id": 2,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 1,
+          "col": 1,
+          "orient": "down"
+        },
+        {
+          "id": 3,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 1,
+          "col": 2,
+          "orient": "up"
+        },
+        {
+          "id": 4,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 2,
+          "col": 0,
+          "orient": "up"
+        },
+        {
+          "id": 5,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 2,
+          "col": 1,
+          "orient": "down"
+        },
+        {
+          "id": 6,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 2,
+          "col": 2,
+          "orient": "up"
+        },
+        {
+          "id": 7,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 2,
+          "col": 3,
+          "orient": "down"
+        },
+        {
+          "id": 8,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 2,
+          "col": 4,
+          "orient": "up"
+        },
+        {
+          "id": 9,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 3,
+          "col": 0,
+          "orient": "up"
+        },
+        {
+          "id": 10,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 3,
+          "col": 1,
+          "orient": "down"
+        },
+        {
+          "id": 11,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 3,
+          "col": 2,
+          "orient": "up"
+        },
+        {
+          "id": 12,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 3,
+          "col": 3,
+          "orient": "down"
+        },
+        {
+          "id": 13,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 3,
+          "col": 4,
+          "orient": "up"
+        },
+        {
+          "id": 14,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 3,
+          "col": 5,
+          "orient": "down"
+        },
+        {
+          "id": 15,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 3,
+          "col": 6,
+          "orient": "up"
+        },
+        {
+          "id": 16,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 0,
+          "orient": "up"
+        },
+        {
+          "id": 17,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 1,
+          "orient": "down"
+        },
+        {
+          "id": 18,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 2,
+          "orient": "up"
+        },
+        {
+          "id": 19,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 3,
+          "orient": "down"
+        },
+        {
+          "id": 20,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 4,
+          "orient": "up"
+        },
+        {
+          "id": 21,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 5,
+          "orient": "down"
+        },
+        {
+          "id": 22,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 6,
+          "orient": "up"
+        },
+        {
+          "id": 23,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 7,
+          "orient": "down"
+        },
+        {
+          "id": 24,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 4,
+          "col": 8,
+          "orient": "up"
+        },
+        {
+          "id": 25,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 0,
+          "orient": "up"
+        },
+        {
+          "id": 26,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 1,
+          "orient": "down"
+        },
+        {
+          "id": 27,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 2,
+          "orient": "up"
+        },
+        {
+          "id": 28,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 3,
+          "orient": "down"
+        },
+        {
+          "id": 29,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 4,
+          "orient": "up"
+        },
+        {
+          "id": 30,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 5,
+          "orient": "down"
+        },
+        {
+          "id": 31,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 6,
+          "orient": "up"
+        },
+        {
+          "id": 32,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 7,
+          "orient": "down"
+        },
+        {
+          "id": 33,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 8,
+          "orient": "up"
+        },
+        {
+          "id": 34,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 9,
+          "orient": "down"
+        },
+        {
+          "id": 35,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "row": 5,
+          "col": 10,
+          "orient": "up"
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          7
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          10
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          12
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          8,
+          14
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          11,
+          19
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          13,
+          21
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          15,
+          23
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          18,
+          28
+        ],
+        [
+          19,
+          20
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          20,
+          30
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          22,
+          32
+        ],
+        [
+          23,
+          24
+        ],
+        [
+          24,
+          34
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          32,
+          33
+        ],
+        [
+          33,
+          34
+        ],
+        [
+          34,
+          35
+        ]
+      ],
+      "referenceSolution": [
+        [
+          15,
+          23,
+          24,
+          33,
+          34,
+          35
+        ],
+        [
+          0,
+          1,
+          2,
+          3,
+          7,
+          8
+        ],
+        [
+          13,
+          14,
+          21,
+          22,
+          31,
+          32
+        ],
+        [
+          16,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        [
+          9,
+          17,
+          18,
+          19,
+          20,
+          30
+        ],
+        [
+          4,
+          5,
+          6,
+          10,
+          11,
+          12
+        ]
+      ]
+    },
+    "assignment": {
+      "15": 0,
+      "23": 0,
+      "24": 0,
+      "33": 0,
+      "34": 0,
+      "35": 0,
+      "0": 1,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "7": 1,
+      "8": 1,
+      "13": 2,
+      "14": 2,
+      "21": 2,
+      "22": 2,
+      "31": 2,
+      "32": 2,
+      "16": 3,
+      "25": 3,
+      "26": 3,
+      "27": 3,
+      "28": 3,
+      "29": 3,
+      "9": 4,
+      "17": 4,
+      "18": 4,
+      "19": 4,
+      "20": 4,
+      "30": 4,
+      "4": 5,
+      "5": 5,
+      "6": 5,
+      "10": 5,
+      "11": 5,
+      "12": 5
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 4,
+      "minSeats": 4,
+      "seatsOk": true,
+      "compactnessGrade": null,
+      "efficiencyGap": null,
+      "solved": true
+    }
+  },
+  {
+    "name": "L4_reference_compact",
+    "level": {
+      "id": "L4",
+      "name": "The Report Card",
+      "shape": "square",
+      "gridWidth": 10,
+      "gridHeight": 10,
+      "districtCount": 10,
+      "districtSize": 10,
+      "winCondition": {
+        "minSeats": 6,
+        "compactnessMinGrade": "C",
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 0
+        },
+        {
+          "id": 3,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 0
+        },
+        {
+          "id": 4,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 0
+        },
+        {
+          "id": 5,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 0
+        },
+        {
+          "id": 6,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 0
+        },
+        {
+          "id": 7,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 0
+        },
+        {
+          "id": 8,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 0
+        },
+        {
+          "id": 9,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 0
+        },
+        {
+          "id": 10,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 11,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        },
+        {
+          "id": 12,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 1
+        },
+        {
+          "id": 13,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 1
+        },
+        {
+          "id": 14,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 1
+        },
+        {
+          "id": 15,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 1
+        },
+        {
+          "id": 16,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 1
+        },
+        {
+          "id": 17,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 1
+        },
+        {
+          "id": 18,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 1
+        },
+        {
+          "id": 19,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 1
+        },
+        {
+          "id": 20,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 2
+        },
+        {
+          "id": 21,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 2
+        },
+        {
+          "id": 22,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 2
+        },
+        {
+          "id": 23,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 2
+        },
+        {
+          "id": 24,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 2
+        },
+        {
+          "id": 25,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 2
+        },
+        {
+          "id": 26,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 2
+        },
+        {
+          "id": 27,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 2
+        },
+        {
+          "id": 28,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 2
+        },
+        {
+          "id": 29,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 2
+        },
+        {
+          "id": 30,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 3
+        },
+        {
+          "id": 31,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 3
+        },
+        {
+          "id": 32,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 3
+        },
+        {
+          "id": 33,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 3
+        },
+        {
+          "id": 34,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 3
+        },
+        {
+          "id": 35,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 3
+        },
+        {
+          "id": 36,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 3
+        },
+        {
+          "id": 37,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 3
+        },
+        {
+          "id": 38,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 3
+        },
+        {
+          "id": 39,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 3
+        },
+        {
+          "id": 40,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 4
+        },
+        {
+          "id": 41,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 4
+        },
+        {
+          "id": 42,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 4
+        },
+        {
+          "id": 43,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 4
+        },
+        {
+          "id": 44,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 4
+        },
+        {
+          "id": 45,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 4
+        },
+        {
+          "id": 46,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 4
+        },
+        {
+          "id": 47,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 4
+        },
+        {
+          "id": 48,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 4
+        },
+        {
+          "id": 49,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 4
+        },
+        {
+          "id": 50,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 5
+        },
+        {
+          "id": 51,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 5
+        },
+        {
+          "id": 52,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 5
+        },
+        {
+          "id": 53,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 5
+        },
+        {
+          "id": 54,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 5
+        },
+        {
+          "id": 55,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 5
+        },
+        {
+          "id": 56,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 5
+        },
+        {
+          "id": 57,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 5
+        },
+        {
+          "id": 58,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 5
+        },
+        {
+          "id": 59,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 5
+        },
+        {
+          "id": 60,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 6
+        },
+        {
+          "id": 61,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 6
+        },
+        {
+          "id": 62,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 6
+        },
+        {
+          "id": 63,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 6
+        },
+        {
+          "id": 64,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 6
+        },
+        {
+          "id": 65,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 6
+        },
+        {
+          "id": 66,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 6
+        },
+        {
+          "id": 67,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 6
+        },
+        {
+          "id": 68,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 6
+        },
+        {
+          "id": 69,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 6
+        },
+        {
+          "id": 70,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 7
+        },
+        {
+          "id": 71,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 7
+        },
+        {
+          "id": 72,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 7
+        },
+        {
+          "id": 73,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 7
+        },
+        {
+          "id": 74,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 7
+        },
+        {
+          "id": 75,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 7
+        },
+        {
+          "id": 76,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 7
+        },
+        {
+          "id": 77,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 7
+        },
+        {
+          "id": 78,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 7
+        },
+        {
+          "id": 79,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 7
+        },
+        {
+          "id": 80,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 8
+        },
+        {
+          "id": 81,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 8
+        },
+        {
+          "id": 82,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 8
+        },
+        {
+          "id": 83,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 8
+        },
+        {
+          "id": 84,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 8
+        },
+        {
+          "id": 85,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 8
+        },
+        {
+          "id": 86,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 8
+        },
+        {
+          "id": 87,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 8
+        },
+        {
+          "id": 88,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 8
+        },
+        {
+          "id": 89,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 8
+        },
+        {
+          "id": 90,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 9
+        },
+        {
+          "id": 91,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 9
+        },
+        {
+          "id": 92,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 9
+        },
+        {
+          "id": 93,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 9
+        },
+        {
+          "id": 94,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 9
+        },
+        {
+          "id": 95,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 9
+        },
+        {
+          "id": 96,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 9
+        },
+        {
+          "id": 97,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 9
+        },
+        {
+          "id": 98,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 9
+        },
+        {
+          "id": 99,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 9
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          14
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          15
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          17
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          20
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          11,
+          21
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          12,
+          22
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          13,
+          23
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          17,
+          27
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          18,
+          28
+        ],
+        [
+          19,
+          29
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          20,
+          30
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          21,
+          31
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          22,
+          32
+        ],
+        [
+          23,
+          24
+        ],
+        [
+          23,
+          33
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          24,
+          34
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          25,
+          35
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          26,
+          36
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          27,
+          37
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          29,
+          39
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          31,
+          41
+        ],
+        [
+          32,
+          33
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          33,
+          34
+        ],
+        [
+          33,
+          43
+        ],
+        [
+          34,
+          35
+        ],
+        [
+          34,
+          44
+        ],
+        [
+          35,
+          36
+        ],
+        [
+          35,
+          45
+        ],
+        [
+          36,
+          37
+        ],
+        [
+          36,
+          46
+        ],
+        [
+          37,
+          38
+        ],
+        [
+          37,
+          47
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          39,
+          49
+        ],
+        [
+          40,
+          41
+        ],
+        [
+          40,
+          50
+        ],
+        [
+          41,
+          42
+        ],
+        [
+          41,
+          51
+        ],
+        [
+          42,
+          43
+        ],
+        [
+          42,
+          52
+        ],
+        [
+          43,
+          44
+        ],
+        [
+          43,
+          53
+        ],
+        [
+          44,
+          45
+        ],
+        [
+          44,
+          54
+        ],
+        [
+          45,
+          46
+        ],
+        [
+          45,
+          55
+        ],
+        [
+          46,
+          47
+        ],
+        [
+          46,
+          56
+        ],
+        [
+          47,
+          48
+        ],
+        [
+          47,
+          57
+        ],
+        [
+          48,
+          49
+        ],
+        [
+          48,
+          58
+        ],
+        [
+          49,
+          59
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          50,
+          60
+        ],
+        [
+          51,
+          52
+        ],
+        [
+          51,
+          61
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          52,
+          62
+        ],
+        [
+          53,
+          54
+        ],
+        [
+          53,
+          63
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          54,
+          64
+        ],
+        [
+          55,
+          56
+        ],
+        [
+          55,
+          65
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          56,
+          66
+        ],
+        [
+          57,
+          58
+        ],
+        [
+          57,
+          67
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          58,
+          68
+        ],
+        [
+          59,
+          69
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          60,
+          70
+        ],
+        [
+          61,
+          62
+        ],
+        [
+          61,
+          71
+        ],
+        [
+          62,
+          63
+        ],
+        [
+          62,
+          72
+        ],
+        [
+          63,
+          64
+        ],
+        [
+          63,
+          73
+        ],
+        [
+          64,
+          65
+        ],
+        [
+          64,
+          74
+        ],
+        [
+          65,
+          66
+        ],
+        [
+          65,
+          75
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          66,
+          76
+        ],
+        [
+          67,
+          68
+        ],
+        [
+          67,
+          77
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          68,
+          78
+        ],
+        [
+          69,
+          79
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          70,
+          80
+        ],
+        [
+          71,
+          72
+        ],
+        [
+          71,
+          81
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          72,
+          82
+        ],
+        [
+          73,
+          74
+        ],
+        [
+          73,
+          83
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          74,
+          84
+        ],
+        [
+          75,
+          76
+        ],
+        [
+          75,
+          85
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          76,
+          86
+        ],
+        [
+          77,
+          78
+        ],
+        [
+          77,
+          87
+        ],
+        [
+          78,
+          79
+        ],
+        [
+          78,
+          88
+        ],
+        [
+          79,
+          89
+        ],
+        [
+          80,
+          81
+        ],
+        [
+          80,
+          90
+        ],
+        [
+          81,
+          82
+        ],
+        [
+          81,
+          91
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          82,
+          92
+        ],
+        [
+          83,
+          84
+        ],
+        [
+          83,
+          93
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          84,
+          94
+        ],
+        [
+          85,
+          86
+        ],
+        [
+          85,
+          95
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          86,
+          96
+        ],
+        [
+          87,
+          88
+        ],
+        [
+          87,
+          97
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          88,
+          98
+        ],
+        [
+          89,
+          99
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          91,
+          92
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          93,
+          94
+        ],
+        [
+          94,
+          95
+        ],
+        [
+          95,
+          96
+        ],
+        [
+          96,
+          97
+        ],
+        [
+          97,
+          98
+        ],
+        [
+          98,
+          99
+        ]
+      ],
+      "referenceSolution": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        [
+          5,
+          6,
+          7,
+          8,
+          9,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23,
+          24,
+          30,
+          31,
+          32,
+          33,
+          34
+        ],
+        [
+          25,
+          26,
+          27,
+          28,
+          29,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43,
+          44,
+          50,
+          51,
+          52,
+          53,
+          54
+        ],
+        [
+          45,
+          46,
+          47,
+          48,
+          49,
+          55,
+          56,
+          57,
+          58,
+          59
+        ],
+        [
+          60,
+          61,
+          62,
+          63,
+          64,
+          70,
+          71,
+          72,
+          73,
+          74
+        ],
+        [
+          65,
+          66,
+          67,
+          68,
+          69,
+          75,
+          76,
+          77,
+          78,
+          79
+        ],
+        [
+          80,
+          81,
+          82,
+          83,
+          84,
+          90,
+          91,
+          92,
+          93,
+          94
+        ],
+        [
+          85,
+          86,
+          87,
+          88,
+          89,
+          95,
+          96,
+          97,
+          98,
+          99
+        ]
+      ]
+    },
+    "assignment": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 0,
+      "5": 1,
+      "6": 1,
+      "7": 1,
+      "8": 1,
+      "9": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 1,
+      "19": 1,
+      "20": 2,
+      "21": 2,
+      "22": 2,
+      "23": 2,
+      "24": 2,
+      "30": 2,
+      "31": 2,
+      "32": 2,
+      "33": 2,
+      "34": 2,
+      "25": 3,
+      "26": 3,
+      "27": 3,
+      "28": 3,
+      "29": 3,
+      "35": 3,
+      "36": 3,
+      "37": 3,
+      "38": 3,
+      "39": 3,
+      "40": 4,
+      "41": 4,
+      "42": 4,
+      "43": 4,
+      "44": 4,
+      "50": 4,
+      "51": 4,
+      "52": 4,
+      "53": 4,
+      "54": 4,
+      "45": 5,
+      "46": 5,
+      "47": 5,
+      "48": 5,
+      "49": 5,
+      "55": 5,
+      "56": 5,
+      "57": 5,
+      "58": 5,
+      "59": 5,
+      "60": 6,
+      "61": 6,
+      "62": 6,
+      "63": 6,
+      "64": 6,
+      "70": 6,
+      "71": 6,
+      "72": 6,
+      "73": 6,
+      "74": 6,
+      "65": 7,
+      "66": 7,
+      "67": 7,
+      "68": 7,
+      "69": 7,
+      "75": 7,
+      "76": 7,
+      "77": 7,
+      "78": 7,
+      "79": 7,
+      "80": 8,
+      "81": 8,
+      "82": 8,
+      "83": 8,
+      "84": 8,
+      "90": 8,
+      "91": 8,
+      "92": 8,
+      "93": 8,
+      "94": 8,
+      "85": 9,
+      "86": 9,
+      "87": 9,
+      "88": 9,
+      "89": 9,
+      "95": 9,
+      "96": 9,
+      "97": 9,
+      "98": 9,
+      "99": 9
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": true,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 6,
+      "minSeats": 6,
+      "seatsOk": true,
+      "compactnessGrade": "A",
+      "efficiencyGap": null,
+      "solved": true
+    }
+  },
+  {
+    "name": "L4_rows_variant",
+    "level": {
+      "id": "L4",
+      "name": "The Report Card",
+      "shape": "square",
+      "gridWidth": 10,
+      "gridHeight": 10,
+      "districtCount": 10,
+      "districtSize": 10,
+      "winCondition": {
+        "minSeats": 6,
+        "compactnessMinGrade": "C",
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 0
+        },
+        {
+          "id": 3,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 0
+        },
+        {
+          "id": 4,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 0
+        },
+        {
+          "id": 5,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 0
+        },
+        {
+          "id": 6,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 0
+        },
+        {
+          "id": 7,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 0
+        },
+        {
+          "id": 8,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 0
+        },
+        {
+          "id": 9,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 0
+        },
+        {
+          "id": 10,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 11,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        },
+        {
+          "id": 12,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 1
+        },
+        {
+          "id": 13,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 1
+        },
+        {
+          "id": 14,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 1
+        },
+        {
+          "id": 15,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 1
+        },
+        {
+          "id": 16,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 1
+        },
+        {
+          "id": 17,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 1
+        },
+        {
+          "id": 18,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 1
+        },
+        {
+          "id": 19,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 1
+        },
+        {
+          "id": 20,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 2
+        },
+        {
+          "id": 21,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 2
+        },
+        {
+          "id": 22,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 2
+        },
+        {
+          "id": 23,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 2
+        },
+        {
+          "id": 24,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 2
+        },
+        {
+          "id": 25,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 2
+        },
+        {
+          "id": 26,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 2
+        },
+        {
+          "id": 27,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 2
+        },
+        {
+          "id": 28,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 2
+        },
+        {
+          "id": 29,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 2
+        },
+        {
+          "id": 30,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 3
+        },
+        {
+          "id": 31,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 3
+        },
+        {
+          "id": 32,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 3
+        },
+        {
+          "id": 33,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 3
+        },
+        {
+          "id": 34,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 3
+        },
+        {
+          "id": 35,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 3
+        },
+        {
+          "id": 36,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 3
+        },
+        {
+          "id": 37,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 3
+        },
+        {
+          "id": 38,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 3
+        },
+        {
+          "id": 39,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 3
+        },
+        {
+          "id": 40,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 4
+        },
+        {
+          "id": 41,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 4
+        },
+        {
+          "id": 42,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 4
+        },
+        {
+          "id": 43,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 4
+        },
+        {
+          "id": 44,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 4
+        },
+        {
+          "id": 45,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 4
+        },
+        {
+          "id": 46,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 4
+        },
+        {
+          "id": 47,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 4
+        },
+        {
+          "id": 48,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 4
+        },
+        {
+          "id": 49,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 4
+        },
+        {
+          "id": 50,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 5
+        },
+        {
+          "id": 51,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 5
+        },
+        {
+          "id": 52,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 5
+        },
+        {
+          "id": 53,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 5
+        },
+        {
+          "id": 54,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 5
+        },
+        {
+          "id": 55,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 5
+        },
+        {
+          "id": 56,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 5
+        },
+        {
+          "id": 57,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 5
+        },
+        {
+          "id": 58,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 5
+        },
+        {
+          "id": 59,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 5
+        },
+        {
+          "id": 60,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 6
+        },
+        {
+          "id": 61,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 6
+        },
+        {
+          "id": 62,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 6
+        },
+        {
+          "id": 63,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 6
+        },
+        {
+          "id": 64,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 6
+        },
+        {
+          "id": 65,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 6
+        },
+        {
+          "id": 66,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 6
+        },
+        {
+          "id": 67,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 6
+        },
+        {
+          "id": 68,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 6
+        },
+        {
+          "id": 69,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 6
+        },
+        {
+          "id": 70,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 7
+        },
+        {
+          "id": 71,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 7
+        },
+        {
+          "id": 72,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 7
+        },
+        {
+          "id": 73,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 7
+        },
+        {
+          "id": 74,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 7
+        },
+        {
+          "id": 75,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 7
+        },
+        {
+          "id": 76,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 7
+        },
+        {
+          "id": 77,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 7
+        },
+        {
+          "id": 78,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 7
+        },
+        {
+          "id": 79,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 7
+        },
+        {
+          "id": 80,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 8
+        },
+        {
+          "id": 81,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 8
+        },
+        {
+          "id": 82,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 8
+        },
+        {
+          "id": 83,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 8
+        },
+        {
+          "id": 84,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 8
+        },
+        {
+          "id": 85,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 8
+        },
+        {
+          "id": 86,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 8
+        },
+        {
+          "id": 87,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 8
+        },
+        {
+          "id": 88,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 8
+        },
+        {
+          "id": 89,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 8
+        },
+        {
+          "id": 90,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 9
+        },
+        {
+          "id": 91,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 9
+        },
+        {
+          "id": 92,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 9
+        },
+        {
+          "id": 93,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 9
+        },
+        {
+          "id": 94,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 9
+        },
+        {
+          "id": 95,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 9
+        },
+        {
+          "id": 96,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 9
+        },
+        {
+          "id": 97,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 9
+        },
+        {
+          "id": 98,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 9
+        },
+        {
+          "id": 99,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 9
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          11
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          13
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          14
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          15
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          16
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          17
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          18
+        ],
+        [
+          9,
+          19
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          20
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          11,
+          21
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          12,
+          22
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          13,
+          23
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          14,
+          24
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          16,
+          26
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          17,
+          27
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          18,
+          28
+        ],
+        [
+          19,
+          29
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          20,
+          30
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          21,
+          31
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          22,
+          32
+        ],
+        [
+          23,
+          24
+        ],
+        [
+          23,
+          33
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          24,
+          34
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          25,
+          35
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          26,
+          36
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          27,
+          37
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          28,
+          38
+        ],
+        [
+          29,
+          39
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          30,
+          40
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          31,
+          41
+        ],
+        [
+          32,
+          33
+        ],
+        [
+          32,
+          42
+        ],
+        [
+          33,
+          34
+        ],
+        [
+          33,
+          43
+        ],
+        [
+          34,
+          35
+        ],
+        [
+          34,
+          44
+        ],
+        [
+          35,
+          36
+        ],
+        [
+          35,
+          45
+        ],
+        [
+          36,
+          37
+        ],
+        [
+          36,
+          46
+        ],
+        [
+          37,
+          38
+        ],
+        [
+          37,
+          47
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          38,
+          48
+        ],
+        [
+          39,
+          49
+        ],
+        [
+          40,
+          41
+        ],
+        [
+          40,
+          50
+        ],
+        [
+          41,
+          42
+        ],
+        [
+          41,
+          51
+        ],
+        [
+          42,
+          43
+        ],
+        [
+          42,
+          52
+        ],
+        [
+          43,
+          44
+        ],
+        [
+          43,
+          53
+        ],
+        [
+          44,
+          45
+        ],
+        [
+          44,
+          54
+        ],
+        [
+          45,
+          46
+        ],
+        [
+          45,
+          55
+        ],
+        [
+          46,
+          47
+        ],
+        [
+          46,
+          56
+        ],
+        [
+          47,
+          48
+        ],
+        [
+          47,
+          57
+        ],
+        [
+          48,
+          49
+        ],
+        [
+          48,
+          58
+        ],
+        [
+          49,
+          59
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          50,
+          60
+        ],
+        [
+          51,
+          52
+        ],
+        [
+          51,
+          61
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          52,
+          62
+        ],
+        [
+          53,
+          54
+        ],
+        [
+          53,
+          63
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          54,
+          64
+        ],
+        [
+          55,
+          56
+        ],
+        [
+          55,
+          65
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          56,
+          66
+        ],
+        [
+          57,
+          58
+        ],
+        [
+          57,
+          67
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          58,
+          68
+        ],
+        [
+          59,
+          69
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          60,
+          70
+        ],
+        [
+          61,
+          62
+        ],
+        [
+          61,
+          71
+        ],
+        [
+          62,
+          63
+        ],
+        [
+          62,
+          72
+        ],
+        [
+          63,
+          64
+        ],
+        [
+          63,
+          73
+        ],
+        [
+          64,
+          65
+        ],
+        [
+          64,
+          74
+        ],
+        [
+          65,
+          66
+        ],
+        [
+          65,
+          75
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          66,
+          76
+        ],
+        [
+          67,
+          68
+        ],
+        [
+          67,
+          77
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          68,
+          78
+        ],
+        [
+          69,
+          79
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          70,
+          80
+        ],
+        [
+          71,
+          72
+        ],
+        [
+          71,
+          81
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          72,
+          82
+        ],
+        [
+          73,
+          74
+        ],
+        [
+          73,
+          83
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          74,
+          84
+        ],
+        [
+          75,
+          76
+        ],
+        [
+          75,
+          85
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          76,
+          86
+        ],
+        [
+          77,
+          78
+        ],
+        [
+          77,
+          87
+        ],
+        [
+          78,
+          79
+        ],
+        [
+          78,
+          88
+        ],
+        [
+          79,
+          89
+        ],
+        [
+          80,
+          81
+        ],
+        [
+          80,
+          90
+        ],
+        [
+          81,
+          82
+        ],
+        [
+          81,
+          91
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          82,
+          92
+        ],
+        [
+          83,
+          84
+        ],
+        [
+          83,
+          93
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          84,
+          94
+        ],
+        [
+          85,
+          86
+        ],
+        [
+          85,
+          95
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          86,
+          96
+        ],
+        [
+          87,
+          88
+        ],
+        [
+          87,
+          97
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          88,
+          98
+        ],
+        [
+          89,
+          99
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          91,
+          92
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          93,
+          94
+        ],
+        [
+          94,
+          95
+        ],
+        [
+          95,
+          96
+        ],
+        [
+          96,
+          97
+        ],
+        [
+          97,
+          98
+        ],
+        [
+          98,
+          99
+        ]
+      ],
+      "referenceSolution": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          10,
+          11,
+          12,
+          13,
+          14
+        ],
+        [
+          5,
+          6,
+          7,
+          8,
+          9,
+          15,
+          16,
+          17,
+          18,
+          19
+        ],
+        [
+          20,
+          21,
+          22,
+          23,
+          24,
+          30,
+          31,
+          32,
+          33,
+          34
+        ],
+        [
+          25,
+          26,
+          27,
+          28,
+          29,
+          35,
+          36,
+          37,
+          38,
+          39
+        ],
+        [
+          40,
+          41,
+          42,
+          43,
+          44,
+          50,
+          51,
+          52,
+          53,
+          54
+        ],
+        [
+          45,
+          46,
+          47,
+          48,
+          49,
+          55,
+          56,
+          57,
+          58,
+          59
+        ],
+        [
+          60,
+          61,
+          62,
+          63,
+          64,
+          70,
+          71,
+          72,
+          73,
+          74
+        ],
+        [
+          65,
+          66,
+          67,
+          68,
+          69,
+          75,
+          76,
+          77,
+          78,
+          79
+        ],
+        [
+          80,
+          81,
+          82,
+          83,
+          84,
+          90,
+          91,
+          92,
+          93,
+          94
+        ],
+        [
+          85,
+          86,
+          87,
+          88,
+          89,
+          95,
+          96,
+          97,
+          98,
+          99
+        ]
+      ]
+    },
+    "assignment": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 1,
+      "11": 1,
+      "12": 1,
+      "13": 1,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 1,
+      "19": 1,
+      "20": 2,
+      "21": 2,
+      "22": 2,
+      "23": 2,
+      "24": 2,
+      "25": 2,
+      "26": 2,
+      "27": 2,
+      "28": 2,
+      "29": 2,
+      "30": 3,
+      "31": 3,
+      "32": 3,
+      "33": 3,
+      "34": 3,
+      "35": 3,
+      "36": 3,
+      "37": 3,
+      "38": 3,
+      "39": 3,
+      "40": 4,
+      "41": 4,
+      "42": 4,
+      "43": 4,
+      "44": 4,
+      "45": 4,
+      "46": 4,
+      "47": 4,
+      "48": 4,
+      "49": 4,
+      "50": 5,
+      "51": 5,
+      "52": 5,
+      "53": 5,
+      "54": 5,
+      "55": 5,
+      "56": 5,
+      "57": 5,
+      "58": 5,
+      "59": 5,
+      "60": 6,
+      "61": 6,
+      "62": 6,
+      "63": 6,
+      "64": 6,
+      "65": 6,
+      "66": 6,
+      "67": 6,
+      "68": 6,
+      "69": 6,
+      "70": 7,
+      "71": 7,
+      "72": 7,
+      "73": 7,
+      "74": 7,
+      "75": 7,
+      "76": 7,
+      "77": 7,
+      "78": 7,
+      "79": 7,
+      "80": 8,
+      "81": 8,
+      "82": 8,
+      "83": 8,
+      "84": 8,
+      "85": 8,
+      "86": 8,
+      "87": 8,
+      "88": 8,
+      "89": 8,
+      "90": 9,
+      "91": 9,
+      "92": 9,
+      "93": 9,
+      "94": 9,
+      "95": 9,
+      "96": 9,
+      "97": 9,
+      "98": 9,
+      "99": 9
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": true,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 1,
+      "minSeats": 6,
+      "seatsOk": false,
+      "compactnessGrade": "C",
+      "efficiencyGap": null,
+      "solved": false
+    }
+  },
+  {
+    "name": "L5_reference_lake",
+    "level": {
+      "id": "L5",
+      "name": "The Natural Barrier",
+      "shape": "square",
+      "gridWidth": 12,
+      "gridHeight": 12,
+      "districtCount": 12,
+      "districtSize": 11,
+      "winCondition": {
+        "minSeats": 7,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": null
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 0
+        },
+        {
+          "id": 3,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 0
+        },
+        {
+          "id": 4,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 0
+        },
+        {
+          "id": 5,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 0
+        },
+        {
+          "id": 6,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 0
+        },
+        {
+          "id": 7,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 0
+        },
+        {
+          "id": 8,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 0
+        },
+        {
+          "id": 9,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 0
+        },
+        {
+          "id": 10,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 0
+        },
+        {
+          "id": 11,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 0
+        },
+        {
+          "id": 12,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 13,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        },
+        {
+          "id": 14,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 1
+        },
+        {
+          "id": 15,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 1
+        },
+        {
+          "id": 16,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 1
+        },
+        {
+          "id": 17,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 1
+        },
+        {
+          "id": 18,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 1
+        },
+        {
+          "id": 19,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 1
+        },
+        {
+          "id": 20,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 1
+        },
+        {
+          "id": 21,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 1
+        },
+        {
+          "id": 22,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 1
+        },
+        {
+          "id": 23,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 1
+        },
+        {
+          "id": 24,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 2
+        },
+        {
+          "id": 25,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 2
+        },
+        {
+          "id": 26,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 2
+        },
+        {
+          "id": 27,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 2
+        },
+        {
+          "id": 28,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 2
+        },
+        {
+          "id": 29,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 2
+        },
+        {
+          "id": 30,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 2
+        },
+        {
+          "id": 31,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 2
+        },
+        {
+          "id": 32,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 2
+        },
+        {
+          "id": 33,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 2
+        },
+        {
+          "id": 34,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 2
+        },
+        {
+          "id": 35,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 2
+        },
+        {
+          "id": 36,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 3
+        },
+        {
+          "id": 37,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 3
+        },
+        {
+          "id": 38,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 3
+        },
+        {
+          "id": 39,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 3
+        },
+        {
+          "id": 40,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 3
+        },
+        {
+          "id": 41,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 5,
+          "row": 3
+        },
+        {
+          "id": 42,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 6,
+          "row": 3
+        },
+        {
+          "id": 43,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 3
+        },
+        {
+          "id": 44,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 3
+        },
+        {
+          "id": 45,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 3
+        },
+        {
+          "id": 46,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 3
+        },
+        {
+          "id": 47,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 3
+        },
+        {
+          "id": 48,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 4
+        },
+        {
+          "id": 49,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 4
+        },
+        {
+          "id": 50,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 4
+        },
+        {
+          "id": 51,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 4
+        },
+        {
+          "id": 52,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 4
+        },
+        {
+          "id": 53,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 5,
+          "row": 4
+        },
+        {
+          "id": 54,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 6,
+          "row": 4
+        },
+        {
+          "id": 55,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 4
+        },
+        {
+          "id": 56,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 4
+        },
+        {
+          "id": 57,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 4
+        },
+        {
+          "id": 58,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 4
+        },
+        {
+          "id": 59,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 4
+        },
+        {
+          "id": 60,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 5
+        },
+        {
+          "id": 61,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 5
+        },
+        {
+          "id": 62,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 5
+        },
+        {
+          "id": 63,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 5
+        },
+        {
+          "id": 64,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 5
+        },
+        {
+          "id": 65,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 5,
+          "row": 5
+        },
+        {
+          "id": 66,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 6,
+          "row": 5
+        },
+        {
+          "id": 67,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 5
+        },
+        {
+          "id": 68,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 5
+        },
+        {
+          "id": 69,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 5
+        },
+        {
+          "id": 70,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 5
+        },
+        {
+          "id": 71,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 5
+        },
+        {
+          "id": 72,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 6
+        },
+        {
+          "id": 73,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 6
+        },
+        {
+          "id": 74,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 6
+        },
+        {
+          "id": 75,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 6
+        },
+        {
+          "id": 76,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 6
+        },
+        {
+          "id": 77,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 5,
+          "row": 6
+        },
+        {
+          "id": 78,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 6,
+          "row": 6
+        },
+        {
+          "id": 79,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 6
+        },
+        {
+          "id": 80,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 6
+        },
+        {
+          "id": 81,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 6
+        },
+        {
+          "id": 82,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 6
+        },
+        {
+          "id": 83,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 6
+        },
+        {
+          "id": 84,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 7
+        },
+        {
+          "id": 85,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 7
+        },
+        {
+          "id": 86,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 7
+        },
+        {
+          "id": 87,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 7
+        },
+        {
+          "id": 88,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 7
+        },
+        {
+          "id": 89,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 5,
+          "row": 7
+        },
+        {
+          "id": 90,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 6,
+          "row": 7
+        },
+        {
+          "id": 91,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 7
+        },
+        {
+          "id": 92,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 7
+        },
+        {
+          "id": 93,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 7
+        },
+        {
+          "id": 94,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 7
+        },
+        {
+          "id": 95,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 7
+        },
+        {
+          "id": 96,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 8
+        },
+        {
+          "id": 97,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 8
+        },
+        {
+          "id": 98,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 8
+        },
+        {
+          "id": 99,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 8
+        },
+        {
+          "id": 100,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 8
+        },
+        {
+          "id": 101,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 5,
+          "row": 8
+        },
+        {
+          "id": 102,
+          "party": "opponent",
+          "fixed": false,
+          "void": true,
+          "col": 6,
+          "row": 8
+        },
+        {
+          "id": 103,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 8
+        },
+        {
+          "id": 104,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 8
+        },
+        {
+          "id": 105,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 8
+        },
+        {
+          "id": 106,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 8
+        },
+        {
+          "id": 107,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 8
+        },
+        {
+          "id": 108,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 9
+        },
+        {
+          "id": 109,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 9
+        },
+        {
+          "id": 110,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 9
+        },
+        {
+          "id": 111,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 9
+        },
+        {
+          "id": 112,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 9
+        },
+        {
+          "id": 113,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 9
+        },
+        {
+          "id": 114,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 9
+        },
+        {
+          "id": 115,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 9
+        },
+        {
+          "id": 116,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 9
+        },
+        {
+          "id": 117,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 9
+        },
+        {
+          "id": 118,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 9
+        },
+        {
+          "id": 119,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 9
+        },
+        {
+          "id": 120,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 10
+        },
+        {
+          "id": 121,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 10
+        },
+        {
+          "id": 122,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 10
+        },
+        {
+          "id": 123,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 10
+        },
+        {
+          "id": 124,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 10
+        },
+        {
+          "id": 125,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 10
+        },
+        {
+          "id": 126,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 10
+        },
+        {
+          "id": 127,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 10
+        },
+        {
+          "id": 128,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 10
+        },
+        {
+          "id": 129,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 10
+        },
+        {
+          "id": 130,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 10
+        },
+        {
+          "id": 131,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 10
+        },
+        {
+          "id": 132,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 11
+        },
+        {
+          "id": 133,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 11
+        },
+        {
+          "id": 134,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 11
+        },
+        {
+          "id": 135,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 11
+        },
+        {
+          "id": 136,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 11
+        },
+        {
+          "id": 137,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 11
+        },
+        {
+          "id": 138,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 11
+        },
+        {
+          "id": 139,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 11
+        },
+        {
+          "id": 140,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 11
+        },
+        {
+          "id": 141,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 11
+        },
+        {
+          "id": 142,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 11
+        },
+        {
+          "id": 143,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 11
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          13
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          15
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          16
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          17
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          18
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          19
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          20
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          21
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          22
+        ],
+        [
+          11,
+          23
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          12,
+          24
+        ],
+        [
+          13,
+          14
+        ],
+        [
+          13,
+          25
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          14,
+          26
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          15,
+          27
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          16,
+          28
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          17,
+          29
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          18,
+          30
+        ],
+        [
+          19,
+          20
+        ],
+        [
+          19,
+          31
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          20,
+          32
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          21,
+          33
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          22,
+          34
+        ],
+        [
+          23,
+          35
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          24,
+          36
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          25,
+          37
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          26,
+          38
+        ],
+        [
+          27,
+          28
+        ],
+        [
+          27,
+          39
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          28,
+          40
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          31,
+          43
+        ],
+        [
+          32,
+          33
+        ],
+        [
+          32,
+          44
+        ],
+        [
+          33,
+          34
+        ],
+        [
+          33,
+          45
+        ],
+        [
+          34,
+          35
+        ],
+        [
+          34,
+          46
+        ],
+        [
+          35,
+          47
+        ],
+        [
+          36,
+          37
+        ],
+        [
+          36,
+          48
+        ],
+        [
+          37,
+          38
+        ],
+        [
+          37,
+          49
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          38,
+          50
+        ],
+        [
+          39,
+          40
+        ],
+        [
+          39,
+          51
+        ],
+        [
+          40,
+          52
+        ],
+        [
+          43,
+          44
+        ],
+        [
+          43,
+          55
+        ],
+        [
+          44,
+          45
+        ],
+        [
+          44,
+          56
+        ],
+        [
+          45,
+          46
+        ],
+        [
+          45,
+          57
+        ],
+        [
+          46,
+          47
+        ],
+        [
+          46,
+          58
+        ],
+        [
+          47,
+          59
+        ],
+        [
+          48,
+          49
+        ],
+        [
+          48,
+          60
+        ],
+        [
+          49,
+          50
+        ],
+        [
+          49,
+          61
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          50,
+          62
+        ],
+        [
+          51,
+          52
+        ],
+        [
+          51,
+          63
+        ],
+        [
+          52,
+          64
+        ],
+        [
+          55,
+          56
+        ],
+        [
+          55,
+          67
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          56,
+          68
+        ],
+        [
+          57,
+          58
+        ],
+        [
+          57,
+          69
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          58,
+          70
+        ],
+        [
+          59,
+          71
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          60,
+          72
+        ],
+        [
+          61,
+          62
+        ],
+        [
+          61,
+          73
+        ],
+        [
+          62,
+          63
+        ],
+        [
+          62,
+          74
+        ],
+        [
+          63,
+          64
+        ],
+        [
+          63,
+          75
+        ],
+        [
+          64,
+          76
+        ],
+        [
+          67,
+          68
+        ],
+        [
+          67,
+          79
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          68,
+          80
+        ],
+        [
+          69,
+          70
+        ],
+        [
+          69,
+          81
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          70,
+          82
+        ],
+        [
+          71,
+          83
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          72,
+          84
+        ],
+        [
+          73,
+          74
+        ],
+        [
+          73,
+          85
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          74,
+          86
+        ],
+        [
+          75,
+          76
+        ],
+        [
+          75,
+          87
+        ],
+        [
+          76,
+          88
+        ],
+        [
+          79,
+          80
+        ],
+        [
+          79,
+          91
+        ],
+        [
+          80,
+          81
+        ],
+        [
+          80,
+          92
+        ],
+        [
+          81,
+          82
+        ],
+        [
+          81,
+          93
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          82,
+          94
+        ],
+        [
+          83,
+          95
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          84,
+          96
+        ],
+        [
+          85,
+          86
+        ],
+        [
+          85,
+          97
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          86,
+          98
+        ],
+        [
+          87,
+          88
+        ],
+        [
+          87,
+          99
+        ],
+        [
+          88,
+          100
+        ],
+        [
+          91,
+          92
+        ],
+        [
+          91,
+          103
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          92,
+          104
+        ],
+        [
+          93,
+          94
+        ],
+        [
+          93,
+          105
+        ],
+        [
+          94,
+          95
+        ],
+        [
+          94,
+          106
+        ],
+        [
+          95,
+          107
+        ],
+        [
+          96,
+          97
+        ],
+        [
+          96,
+          108
+        ],
+        [
+          97,
+          98
+        ],
+        [
+          97,
+          109
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          98,
+          110
+        ],
+        [
+          99,
+          100
+        ],
+        [
+          99,
+          111
+        ],
+        [
+          100,
+          112
+        ],
+        [
+          103,
+          104
+        ],
+        [
+          103,
+          115
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          104,
+          116
+        ],
+        [
+          105,
+          106
+        ],
+        [
+          105,
+          117
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          106,
+          118
+        ],
+        [
+          107,
+          119
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          108,
+          120
+        ],
+        [
+          109,
+          110
+        ],
+        [
+          109,
+          121
+        ],
+        [
+          110,
+          111
+        ],
+        [
+          110,
+          122
+        ],
+        [
+          111,
+          112
+        ],
+        [
+          111,
+          123
+        ],
+        [
+          112,
+          113
+        ],
+        [
+          112,
+          124
+        ],
+        [
+          113,
+          114
+        ],
+        [
+          113,
+          125
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          114,
+          126
+        ],
+        [
+          115,
+          116
+        ],
+        [
+          115,
+          127
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          116,
+          128
+        ],
+        [
+          117,
+          118
+        ],
+        [
+          117,
+          129
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          118,
+          130
+        ],
+        [
+          119,
+          131
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          120,
+          132
+        ],
+        [
+          121,
+          122
+        ],
+        [
+          121,
+          133
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          122,
+          134
+        ],
+        [
+          123,
+          124
+        ],
+        [
+          123,
+          135
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          124,
+          136
+        ],
+        [
+          125,
+          126
+        ],
+        [
+          125,
+          137
+        ],
+        [
+          126,
+          127
+        ],
+        [
+          126,
+          138
+        ],
+        [
+          127,
+          128
+        ],
+        [
+          127,
+          139
+        ],
+        [
+          128,
+          129
+        ],
+        [
+          128,
+          140
+        ],
+        [
+          129,
+          130
+        ],
+        [
+          129,
+          141
+        ],
+        [
+          130,
+          131
+        ],
+        [
+          130,
+          142
+        ],
+        [
+          131,
+          143
+        ],
+        [
+          132,
+          133
+        ],
+        [
+          133,
+          134
+        ],
+        [
+          134,
+          135
+        ],
+        [
+          135,
+          136
+        ],
+        [
+          136,
+          137
+        ],
+        [
+          137,
+          138
+        ],
+        [
+          138,
+          139
+        ],
+        [
+          139,
+          140
+        ],
+        [
+          140,
+          141
+        ],
+        [
+          141,
+          142
+        ],
+        [
+          142,
+          143
+        ]
+      ],
+      "referenceSolution": [
+        [
+          96,
+          97,
+          108,
+          109,
+          120,
+          121,
+          132,
+          133,
+          134,
+          135,
+          136
+        ],
+        [
+          88,
+          98,
+          99,
+          100,
+          110,
+          111,
+          112,
+          113,
+          122,
+          123,
+          124
+        ],
+        [
+          60,
+          61,
+          72,
+          73,
+          74,
+          75,
+          76,
+          84,
+          85,
+          86,
+          87
+        ],
+        [
+          0,
+          1,
+          2,
+          12,
+          13,
+          24,
+          25,
+          36,
+          37,
+          48,
+          49
+        ],
+        [
+          114,
+          125,
+          126,
+          127,
+          137,
+          138,
+          139,
+          140,
+          141,
+          142,
+          143
+        ],
+        [
+          59,
+          71,
+          83,
+          95,
+          107,
+          118,
+          119,
+          128,
+          129,
+          130,
+          131
+        ],
+        [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          23,
+          35
+        ],
+        [
+          21,
+          22,
+          33,
+          34,
+          46,
+          47,
+          58,
+          70,
+          82,
+          94,
+          106
+        ],
+        [
+          67,
+          79,
+          91,
+          92,
+          93,
+          103,
+          104,
+          105,
+          115,
+          116,
+          117
+        ],
+        [
+          14,
+          26,
+          38,
+          39,
+          40,
+          50,
+          51,
+          52,
+          62,
+          63,
+          64
+        ],
+        [
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          27,
+          28,
+          29,
+          30,
+          32
+        ],
+        [
+          31,
+          43,
+          44,
+          45,
+          55,
+          56,
+          57,
+          68,
+          69,
+          80,
+          81
+        ]
+      ]
+    },
+    "assignment": {
+      "96": 0,
+      "97": 0,
+      "108": 0,
+      "109": 0,
+      "120": 0,
+      "121": 0,
+      "132": 0,
+      "133": 0,
+      "134": 0,
+      "135": 0,
+      "136": 0,
+      "88": 1,
+      "98": 1,
+      "99": 1,
+      "100": 1,
+      "110": 1,
+      "111": 1,
+      "112": 1,
+      "113": 1,
+      "122": 1,
+      "123": 1,
+      "124": 1,
+      "60": 2,
+      "61": 2,
+      "72": 2,
+      "73": 2,
+      "74": 2,
+      "75": 2,
+      "76": 2,
+      "84": 2,
+      "85": 2,
+      "86": 2,
+      "87": 2,
+      "0": 3,
+      "1": 3,
+      "2": 3,
+      "12": 3,
+      "13": 3,
+      "24": 3,
+      "25": 3,
+      "36": 3,
+      "37": 3,
+      "48": 3,
+      "49": 3,
+      "114": 4,
+      "125": 4,
+      "126": 4,
+      "127": 4,
+      "137": 4,
+      "138": 4,
+      "139": 4,
+      "140": 4,
+      "141": 4,
+      "142": 4,
+      "143": 4,
+      "59": 5,
+      "71": 5,
+      "83": 5,
+      "95": 5,
+      "107": 5,
+      "118": 5,
+      "119": 5,
+      "128": 5,
+      "129": 5,
+      "130": 5,
+      "131": 5,
+      "3": 6,
+      "4": 6,
+      "5": 6,
+      "6": 6,
+      "7": 6,
+      "8": 6,
+      "9": 6,
+      "10": 6,
+      "11": 6,
+      "23": 6,
+      "35": 6,
+      "21": 7,
+      "22": 7,
+      "33": 7,
+      "34": 7,
+      "46": 7,
+      "47": 7,
+      "58": 7,
+      "70": 7,
+      "82": 7,
+      "94": 7,
+      "106": 7,
+      "67": 8,
+      "79": 8,
+      "91": 8,
+      "92": 8,
+      "93": 8,
+      "103": 8,
+      "104": 8,
+      "105": 8,
+      "115": 8,
+      "116": 8,
+      "117": 8,
+      "14": 9,
+      "26": 9,
+      "38": 9,
+      "39": 9,
+      "40": 9,
+      "50": 9,
+      "51": 9,
+      "52": 9,
+      "62": 9,
+      "63": 9,
+      "64": 9,
+      "15": 10,
+      "16": 10,
+      "17": 10,
+      "18": 10,
+      "19": 10,
+      "20": 10,
+      "27": 10,
+      "28": 10,
+      "29": 10,
+      "30": 10,
+      "32": 10,
+      "31": 11,
+      "43": 11,
+      "44": 11,
+      "45": 11,
+      "55": 11,
+      "56": 11,
+      "57": 11,
+      "68": 11,
+      "69": 11,
+      "80": 11,
+      "81": 11
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": null
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 7,
+      "minSeats": 7,
+      "seatsOk": true,
+      "compactnessGrade": null,
+      "efficiencyGap": null,
+      "solved": true
+    }
+  },
+  {
+    "name": "L6_reference_gap",
+    "level": {
+      "id": "L6",
+      "name": "The Efficiency Gap",
+      "shape": "square",
+      "gridWidth": 14,
+      "gridHeight": 14,
+      "districtCount": 14,
+      "districtSize": 14,
+      "winCondition": {
+        "minSeats": 8,
+        "compactnessMinGrade": null,
+        "minEfficiencyGap": 0.15
+      },
+      "cells": [
+        {
+          "id": 0,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 0
+        },
+        {
+          "id": 1,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 0
+        },
+        {
+          "id": 2,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 0
+        },
+        {
+          "id": 3,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 0
+        },
+        {
+          "id": 4,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 0
+        },
+        {
+          "id": 5,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 0
+        },
+        {
+          "id": 6,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 0
+        },
+        {
+          "id": 7,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 0
+        },
+        {
+          "id": 8,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 0
+        },
+        {
+          "id": 9,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 0
+        },
+        {
+          "id": 10,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 0
+        },
+        {
+          "id": 11,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 0
+        },
+        {
+          "id": 12,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 0
+        },
+        {
+          "id": 13,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 0
+        },
+        {
+          "id": 14,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 1
+        },
+        {
+          "id": 15,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 1
+        },
+        {
+          "id": 16,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 1
+        },
+        {
+          "id": 17,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 1
+        },
+        {
+          "id": 18,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 1
+        },
+        {
+          "id": 19,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 1
+        },
+        {
+          "id": 20,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 1
+        },
+        {
+          "id": 21,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 1
+        },
+        {
+          "id": 22,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 1
+        },
+        {
+          "id": 23,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 1
+        },
+        {
+          "id": 24,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 1
+        },
+        {
+          "id": 25,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 1
+        },
+        {
+          "id": 26,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 1
+        },
+        {
+          "id": 27,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 1
+        },
+        {
+          "id": 28,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 2
+        },
+        {
+          "id": 29,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 2
+        },
+        {
+          "id": 30,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 2
+        },
+        {
+          "id": 31,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 2
+        },
+        {
+          "id": 32,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 2
+        },
+        {
+          "id": 33,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 2
+        },
+        {
+          "id": 34,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 2
+        },
+        {
+          "id": 35,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 2
+        },
+        {
+          "id": 36,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 2
+        },
+        {
+          "id": 37,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 2
+        },
+        {
+          "id": 38,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 2
+        },
+        {
+          "id": 39,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 2
+        },
+        {
+          "id": 40,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 2
+        },
+        {
+          "id": 41,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 2
+        },
+        {
+          "id": 42,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 3
+        },
+        {
+          "id": 43,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 3
+        },
+        {
+          "id": 44,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 3
+        },
+        {
+          "id": 45,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 3
+        },
+        {
+          "id": 46,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 3
+        },
+        {
+          "id": 47,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 3
+        },
+        {
+          "id": 48,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 3
+        },
+        {
+          "id": 49,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 3
+        },
+        {
+          "id": 50,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 3
+        },
+        {
+          "id": 51,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 3
+        },
+        {
+          "id": 52,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 3
+        },
+        {
+          "id": 53,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 3
+        },
+        {
+          "id": 54,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 3
+        },
+        {
+          "id": 55,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 3
+        },
+        {
+          "id": 56,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 4
+        },
+        {
+          "id": 57,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 4
+        },
+        {
+          "id": 58,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 4
+        },
+        {
+          "id": 59,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 4
+        },
+        {
+          "id": 60,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 4
+        },
+        {
+          "id": 61,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 4
+        },
+        {
+          "id": 62,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 4
+        },
+        {
+          "id": 63,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 4
+        },
+        {
+          "id": 64,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 4
+        },
+        {
+          "id": 65,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 4
+        },
+        {
+          "id": 66,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 4
+        },
+        {
+          "id": 67,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 4
+        },
+        {
+          "id": 68,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 4
+        },
+        {
+          "id": 69,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 4
+        },
+        {
+          "id": 70,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 5
+        },
+        {
+          "id": 71,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 5
+        },
+        {
+          "id": 72,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 5
+        },
+        {
+          "id": 73,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 5
+        },
+        {
+          "id": 74,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 5
+        },
+        {
+          "id": 75,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 5
+        },
+        {
+          "id": 76,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 5
+        },
+        {
+          "id": 77,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 5
+        },
+        {
+          "id": 78,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 5
+        },
+        {
+          "id": 79,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 5
+        },
+        {
+          "id": 80,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 5
+        },
+        {
+          "id": 81,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 5
+        },
+        {
+          "id": 82,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 5
+        },
+        {
+          "id": 83,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 5
+        },
+        {
+          "id": 84,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 6
+        },
+        {
+          "id": 85,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 6
+        },
+        {
+          "id": 86,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 6
+        },
+        {
+          "id": 87,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 6
+        },
+        {
+          "id": 88,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 6
+        },
+        {
+          "id": 89,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 6
+        },
+        {
+          "id": 90,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 6
+        },
+        {
+          "id": 91,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 6
+        },
+        {
+          "id": 92,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 6
+        },
+        {
+          "id": 93,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 6
+        },
+        {
+          "id": 94,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 6
+        },
+        {
+          "id": 95,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 6
+        },
+        {
+          "id": 96,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 6
+        },
+        {
+          "id": 97,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 6
+        },
+        {
+          "id": 98,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 7
+        },
+        {
+          "id": 99,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 7
+        },
+        {
+          "id": 100,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 7
+        },
+        {
+          "id": 101,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 7
+        },
+        {
+          "id": 102,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 7
+        },
+        {
+          "id": 103,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 7
+        },
+        {
+          "id": 104,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 7
+        },
+        {
+          "id": 105,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 7
+        },
+        {
+          "id": 106,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 7
+        },
+        {
+          "id": 107,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 7
+        },
+        {
+          "id": 108,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 7
+        },
+        {
+          "id": 109,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 7
+        },
+        {
+          "id": 110,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 7
+        },
+        {
+          "id": 111,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 7
+        },
+        {
+          "id": 112,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 8
+        },
+        {
+          "id": 113,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 8
+        },
+        {
+          "id": 114,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 8
+        },
+        {
+          "id": 115,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 8
+        },
+        {
+          "id": 116,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 8
+        },
+        {
+          "id": 117,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 8
+        },
+        {
+          "id": 118,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 8
+        },
+        {
+          "id": 119,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 8
+        },
+        {
+          "id": 120,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 8
+        },
+        {
+          "id": 121,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 8
+        },
+        {
+          "id": 122,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 8
+        },
+        {
+          "id": 123,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 8
+        },
+        {
+          "id": 124,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 8
+        },
+        {
+          "id": 125,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 8
+        },
+        {
+          "id": 126,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 9
+        },
+        {
+          "id": 127,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 9
+        },
+        {
+          "id": 128,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 9
+        },
+        {
+          "id": 129,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 9
+        },
+        {
+          "id": 130,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 9
+        },
+        {
+          "id": 131,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 9
+        },
+        {
+          "id": 132,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 9
+        },
+        {
+          "id": 133,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 9
+        },
+        {
+          "id": 134,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 9
+        },
+        {
+          "id": 135,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 9
+        },
+        {
+          "id": 136,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 9
+        },
+        {
+          "id": 137,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 9
+        },
+        {
+          "id": 138,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 9
+        },
+        {
+          "id": 139,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 9
+        },
+        {
+          "id": 140,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 10
+        },
+        {
+          "id": 141,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 10
+        },
+        {
+          "id": 142,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 10
+        },
+        {
+          "id": 143,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 10
+        },
+        {
+          "id": 144,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 10
+        },
+        {
+          "id": 145,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 10
+        },
+        {
+          "id": 146,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 10
+        },
+        {
+          "id": 147,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 10
+        },
+        {
+          "id": 148,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 10
+        },
+        {
+          "id": 149,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 10
+        },
+        {
+          "id": 150,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 10
+        },
+        {
+          "id": 151,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 10
+        },
+        {
+          "id": 152,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 10
+        },
+        {
+          "id": 153,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 10
+        },
+        {
+          "id": 154,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 11
+        },
+        {
+          "id": 155,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 11
+        },
+        {
+          "id": 156,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 11
+        },
+        {
+          "id": 157,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 11
+        },
+        {
+          "id": 158,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 11
+        },
+        {
+          "id": 159,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 11
+        },
+        {
+          "id": 160,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 11
+        },
+        {
+          "id": 161,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 11
+        },
+        {
+          "id": 162,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 11
+        },
+        {
+          "id": 163,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 11
+        },
+        {
+          "id": 164,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 11
+        },
+        {
+          "id": 165,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 11
+        },
+        {
+          "id": 166,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 11
+        },
+        {
+          "id": 167,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 11
+        },
+        {
+          "id": 168,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 12
+        },
+        {
+          "id": 169,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 12
+        },
+        {
+          "id": 170,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 12
+        },
+        {
+          "id": 171,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 12
+        },
+        {
+          "id": 172,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 12
+        },
+        {
+          "id": 173,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 12
+        },
+        {
+          "id": 174,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 12
+        },
+        {
+          "id": 175,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 12
+        },
+        {
+          "id": 176,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 12
+        },
+        {
+          "id": 177,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 12
+        },
+        {
+          "id": 178,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 12
+        },
+        {
+          "id": 179,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 12
+        },
+        {
+          "id": 180,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 12
+        },
+        {
+          "id": 181,
+          "party": "jerry",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 12
+        },
+        {
+          "id": 182,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 0,
+          "row": 13
+        },
+        {
+          "id": 183,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 1,
+          "row": 13
+        },
+        {
+          "id": 184,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 2,
+          "row": 13
+        },
+        {
+          "id": 185,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 3,
+          "row": 13
+        },
+        {
+          "id": 186,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 4,
+          "row": 13
+        },
+        {
+          "id": 187,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 5,
+          "row": 13
+        },
+        {
+          "id": 188,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 6,
+          "row": 13
+        },
+        {
+          "id": 189,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 7,
+          "row": 13
+        },
+        {
+          "id": 190,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 8,
+          "row": 13
+        },
+        {
+          "id": 191,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 9,
+          "row": 13
+        },
+        {
+          "id": 192,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 10,
+          "row": 13
+        },
+        {
+          "id": 193,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 11,
+          "row": 13
+        },
+        {
+          "id": 194,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 12,
+          "row": 13
+        },
+        {
+          "id": 195,
+          "party": "opponent",
+          "fixed": false,
+          "void": false,
+          "col": 13,
+          "row": 13
+        }
+      ],
+      "adjacency": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          1,
+          2
+        ],
+        [
+          1,
+          15
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          2,
+          16
+        ],
+        [
+          3,
+          4
+        ],
+        [
+          3,
+          17
+        ],
+        [
+          4,
+          5
+        ],
+        [
+          4,
+          18
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          5,
+          19
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          6,
+          20
+        ],
+        [
+          7,
+          8
+        ],
+        [
+          7,
+          21
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          8,
+          22
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          9,
+          23
+        ],
+        [
+          10,
+          11
+        ],
+        [
+          10,
+          24
+        ],
+        [
+          11,
+          12
+        ],
+        [
+          11,
+          25
+        ],
+        [
+          12,
+          13
+        ],
+        [
+          12,
+          26
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          14,
+          15
+        ],
+        [
+          14,
+          28
+        ],
+        [
+          15,
+          16
+        ],
+        [
+          15,
+          29
+        ],
+        [
+          16,
+          17
+        ],
+        [
+          16,
+          30
+        ],
+        [
+          17,
+          18
+        ],
+        [
+          17,
+          31
+        ],
+        [
+          18,
+          19
+        ],
+        [
+          18,
+          32
+        ],
+        [
+          19,
+          20
+        ],
+        [
+          19,
+          33
+        ],
+        [
+          20,
+          21
+        ],
+        [
+          20,
+          34
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          21,
+          35
+        ],
+        [
+          22,
+          23
+        ],
+        [
+          22,
+          36
+        ],
+        [
+          23,
+          24
+        ],
+        [
+          23,
+          37
+        ],
+        [
+          24,
+          25
+        ],
+        [
+          24,
+          38
+        ],
+        [
+          25,
+          26
+        ],
+        [
+          25,
+          39
+        ],
+        [
+          26,
+          27
+        ],
+        [
+          26,
+          40
+        ],
+        [
+          27,
+          41
+        ],
+        [
+          28,
+          29
+        ],
+        [
+          28,
+          42
+        ],
+        [
+          29,
+          30
+        ],
+        [
+          29,
+          43
+        ],
+        [
+          30,
+          31
+        ],
+        [
+          30,
+          44
+        ],
+        [
+          31,
+          32
+        ],
+        [
+          31,
+          45
+        ],
+        [
+          32,
+          33
+        ],
+        [
+          32,
+          46
+        ],
+        [
+          33,
+          34
+        ],
+        [
+          33,
+          47
+        ],
+        [
+          34,
+          35
+        ],
+        [
+          34,
+          48
+        ],
+        [
+          35,
+          36
+        ],
+        [
+          35,
+          49
+        ],
+        [
+          36,
+          37
+        ],
+        [
+          36,
+          50
+        ],
+        [
+          37,
+          38
+        ],
+        [
+          37,
+          51
+        ],
+        [
+          38,
+          39
+        ],
+        [
+          38,
+          52
+        ],
+        [
+          39,
+          40
+        ],
+        [
+          39,
+          53
+        ],
+        [
+          40,
+          41
+        ],
+        [
+          40,
+          54
+        ],
+        [
+          41,
+          55
+        ],
+        [
+          42,
+          43
+        ],
+        [
+          42,
+          56
+        ],
+        [
+          43,
+          44
+        ],
+        [
+          43,
+          57
+        ],
+        [
+          44,
+          45
+        ],
+        [
+          44,
+          58
+        ],
+        [
+          45,
+          46
+        ],
+        [
+          45,
+          59
+        ],
+        [
+          46,
+          47
+        ],
+        [
+          46,
+          60
+        ],
+        [
+          47,
+          48
+        ],
+        [
+          47,
+          61
+        ],
+        [
+          48,
+          49
+        ],
+        [
+          48,
+          62
+        ],
+        [
+          49,
+          50
+        ],
+        [
+          49,
+          63
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          50,
+          64
+        ],
+        [
+          51,
+          52
+        ],
+        [
+          51,
+          65
+        ],
+        [
+          52,
+          53
+        ],
+        [
+          52,
+          66
+        ],
+        [
+          53,
+          54
+        ],
+        [
+          53,
+          67
+        ],
+        [
+          54,
+          55
+        ],
+        [
+          54,
+          68
+        ],
+        [
+          55,
+          69
+        ],
+        [
+          56,
+          57
+        ],
+        [
+          56,
+          70
+        ],
+        [
+          57,
+          58
+        ],
+        [
+          57,
+          71
+        ],
+        [
+          58,
+          59
+        ],
+        [
+          58,
+          72
+        ],
+        [
+          59,
+          60
+        ],
+        [
+          59,
+          73
+        ],
+        [
+          60,
+          61
+        ],
+        [
+          60,
+          74
+        ],
+        [
+          61,
+          62
+        ],
+        [
+          61,
+          75
+        ],
+        [
+          62,
+          63
+        ],
+        [
+          62,
+          76
+        ],
+        [
+          63,
+          64
+        ],
+        [
+          63,
+          77
+        ],
+        [
+          64,
+          65
+        ],
+        [
+          64,
+          78
+        ],
+        [
+          65,
+          66
+        ],
+        [
+          65,
+          79
+        ],
+        [
+          66,
+          67
+        ],
+        [
+          66,
+          80
+        ],
+        [
+          67,
+          68
+        ],
+        [
+          67,
+          81
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          68,
+          82
+        ],
+        [
+          69,
+          83
+        ],
+        [
+          70,
+          71
+        ],
+        [
+          70,
+          84
+        ],
+        [
+          71,
+          72
+        ],
+        [
+          71,
+          85
+        ],
+        [
+          72,
+          73
+        ],
+        [
+          72,
+          86
+        ],
+        [
+          73,
+          74
+        ],
+        [
+          73,
+          87
+        ],
+        [
+          74,
+          75
+        ],
+        [
+          74,
+          88
+        ],
+        [
+          75,
+          76
+        ],
+        [
+          75,
+          89
+        ],
+        [
+          76,
+          77
+        ],
+        [
+          76,
+          90
+        ],
+        [
+          77,
+          78
+        ],
+        [
+          77,
+          91
+        ],
+        [
+          78,
+          79
+        ],
+        [
+          78,
+          92
+        ],
+        [
+          79,
+          80
+        ],
+        [
+          79,
+          93
+        ],
+        [
+          80,
+          81
+        ],
+        [
+          80,
+          94
+        ],
+        [
+          81,
+          82
+        ],
+        [
+          81,
+          95
+        ],
+        [
+          82,
+          83
+        ],
+        [
+          82,
+          96
+        ],
+        [
+          83,
+          97
+        ],
+        [
+          84,
+          85
+        ],
+        [
+          84,
+          98
+        ],
+        [
+          85,
+          86
+        ],
+        [
+          85,
+          99
+        ],
+        [
+          86,
+          87
+        ],
+        [
+          86,
+          100
+        ],
+        [
+          87,
+          88
+        ],
+        [
+          87,
+          101
+        ],
+        [
+          88,
+          89
+        ],
+        [
+          88,
+          102
+        ],
+        [
+          89,
+          90
+        ],
+        [
+          89,
+          103
+        ],
+        [
+          90,
+          91
+        ],
+        [
+          90,
+          104
+        ],
+        [
+          91,
+          92
+        ],
+        [
+          91,
+          105
+        ],
+        [
+          92,
+          93
+        ],
+        [
+          92,
+          106
+        ],
+        [
+          93,
+          94
+        ],
+        [
+          93,
+          107
+        ],
+        [
+          94,
+          95
+        ],
+        [
+          94,
+          108
+        ],
+        [
+          95,
+          96
+        ],
+        [
+          95,
+          109
+        ],
+        [
+          96,
+          97
+        ],
+        [
+          96,
+          110
+        ],
+        [
+          97,
+          111
+        ],
+        [
+          98,
+          99
+        ],
+        [
+          98,
+          112
+        ],
+        [
+          99,
+          100
+        ],
+        [
+          99,
+          113
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          100,
+          114
+        ],
+        [
+          101,
+          102
+        ],
+        [
+          101,
+          115
+        ],
+        [
+          102,
+          103
+        ],
+        [
+          102,
+          116
+        ],
+        [
+          103,
+          104
+        ],
+        [
+          103,
+          117
+        ],
+        [
+          104,
+          105
+        ],
+        [
+          104,
+          118
+        ],
+        [
+          105,
+          106
+        ],
+        [
+          105,
+          119
+        ],
+        [
+          106,
+          107
+        ],
+        [
+          106,
+          120
+        ],
+        [
+          107,
+          108
+        ],
+        [
+          107,
+          121
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          108,
+          122
+        ],
+        [
+          109,
+          110
+        ],
+        [
+          109,
+          123
+        ],
+        [
+          110,
+          111
+        ],
+        [
+          110,
+          124
+        ],
+        [
+          111,
+          125
+        ],
+        [
+          112,
+          113
+        ],
+        [
+          112,
+          126
+        ],
+        [
+          113,
+          114
+        ],
+        [
+          113,
+          127
+        ],
+        [
+          114,
+          115
+        ],
+        [
+          114,
+          128
+        ],
+        [
+          115,
+          116
+        ],
+        [
+          115,
+          129
+        ],
+        [
+          116,
+          117
+        ],
+        [
+          116,
+          130
+        ],
+        [
+          117,
+          118
+        ],
+        [
+          117,
+          131
+        ],
+        [
+          118,
+          119
+        ],
+        [
+          118,
+          132
+        ],
+        [
+          119,
+          120
+        ],
+        [
+          119,
+          133
+        ],
+        [
+          120,
+          121
+        ],
+        [
+          120,
+          134
+        ],
+        [
+          121,
+          122
+        ],
+        [
+          121,
+          135
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          122,
+          136
+        ],
+        [
+          123,
+          124
+        ],
+        [
+          123,
+          137
+        ],
+        [
+          124,
+          125
+        ],
+        [
+          124,
+          138
+        ],
+        [
+          125,
+          139
+        ],
+        [
+          126,
+          127
+        ],
+        [
+          126,
+          140
+        ],
+        [
+          127,
+          128
+        ],
+        [
+          127,
+          141
+        ],
+        [
+          128,
+          129
+        ],
+        [
+          128,
+          142
+        ],
+        [
+          129,
+          130
+        ],
+        [
+          129,
+          143
+        ],
+        [
+          130,
+          131
+        ],
+        [
+          130,
+          144
+        ],
+        [
+          131,
+          132
+        ],
+        [
+          131,
+          145
+        ],
+        [
+          132,
+          133
+        ],
+        [
+          132,
+          146
+        ],
+        [
+          133,
+          134
+        ],
+        [
+          133,
+          147
+        ],
+        [
+          134,
+          135
+        ],
+        [
+          134,
+          148
+        ],
+        [
+          135,
+          136
+        ],
+        [
+          135,
+          149
+        ],
+        [
+          136,
+          137
+        ],
+        [
+          136,
+          150
+        ],
+        [
+          137,
+          138
+        ],
+        [
+          137,
+          151
+        ],
+        [
+          138,
+          139
+        ],
+        [
+          138,
+          152
+        ],
+        [
+          139,
+          153
+        ],
+        [
+          140,
+          141
+        ],
+        [
+          140,
+          154
+        ],
+        [
+          141,
+          142
+        ],
+        [
+          141,
+          155
+        ],
+        [
+          142,
+          143
+        ],
+        [
+          142,
+          156
+        ],
+        [
+          143,
+          144
+        ],
+        [
+          143,
+          157
+        ],
+        [
+          144,
+          145
+        ],
+        [
+          144,
+          158
+        ],
+        [
+          145,
+          146
+        ],
+        [
+          145,
+          159
+        ],
+        [
+          146,
+          147
+        ],
+        [
+          146,
+          160
+        ],
+        [
+          147,
+          148
+        ],
+        [
+          147,
+          161
+        ],
+        [
+          148,
+          149
+        ],
+        [
+          148,
+          162
+        ],
+        [
+          149,
+          150
+        ],
+        [
+          149,
+          163
+        ],
+        [
+          150,
+          151
+        ],
+        [
+          150,
+          164
+        ],
+        [
+          151,
+          152
+        ],
+        [
+          151,
+          165
+        ],
+        [
+          152,
+          153
+        ],
+        [
+          152,
+          166
+        ],
+        [
+          153,
+          167
+        ],
+        [
+          154,
+          155
+        ],
+        [
+          154,
+          168
+        ],
+        [
+          155,
+          156
+        ],
+        [
+          155,
+          169
+        ],
+        [
+          156,
+          157
+        ],
+        [
+          156,
+          170
+        ],
+        [
+          157,
+          158
+        ],
+        [
+          157,
+          171
+        ],
+        [
+          158,
+          159
+        ],
+        [
+          158,
+          172
+        ],
+        [
+          159,
+          160
+        ],
+        [
+          159,
+          173
+        ],
+        [
+          160,
+          161
+        ],
+        [
+          160,
+          174
+        ],
+        [
+          161,
+          162
+        ],
+        [
+          161,
+          175
+        ],
+        [
+          162,
+          163
+        ],
+        [
+          162,
+          176
+        ],
+        [
+          163,
+          164
+        ],
+        [
+          163,
+          177
+        ],
+        [
+          164,
+          165
+        ],
+        [
+          164,
+          178
+        ],
+        [
+          165,
+          166
+        ],
+        [
+          165,
+          179
+        ],
+        [
+          166,
+          167
+        ],
+        [
+          166,
+          180
+        ],
+        [
+          167,
+          181
+        ],
+        [
+          168,
+          169
+        ],
+        [
+          168,
+          182
+        ],
+        [
+          169,
+          170
+        ],
+        [
+          169,
+          183
+        ],
+        [
+          170,
+          171
+        ],
+        [
+          170,
+          184
+        ],
+        [
+          171,
+          172
+        ],
+        [
+          171,
+          185
+        ],
+        [
+          172,
+          173
+        ],
+        [
+          172,
+          186
+        ],
+        [
+          173,
+          174
+        ],
+        [
+          173,
+          187
+        ],
+        [
+          174,
+          175
+        ],
+        [
+          174,
+          188
+        ],
+        [
+          175,
+          176
+        ],
+        [
+          175,
+          189
+        ],
+        [
+          176,
+          177
+        ],
+        [
+          176,
+          190
+        ],
+        [
+          177,
+          178
+        ],
+        [
+          177,
+          191
+        ],
+        [
+          178,
+          179
+        ],
+        [
+          178,
+          192
+        ],
+        [
+          179,
+          180
+        ],
+        [
+          179,
+          193
+        ],
+        [
+          180,
+          181
+        ],
+        [
+          180,
+          194
+        ],
+        [
+          181,
+          195
+        ],
+        [
+          182,
+          183
+        ],
+        [
+          183,
+          184
+        ],
+        [
+          184,
+          185
+        ],
+        [
+          185,
+          186
+        ],
+        [
+          186,
+          187
+        ],
+        [
+          187,
+          188
+        ],
+        [
+          188,
+          189
+        ],
+        [
+          189,
+          190
+        ],
+        [
+          190,
+          191
+        ],
+        [
+          191,
+          192
+        ],
+        [
+          192,
+          193
+        ],
+        [
+          193,
+          194
+        ],
+        [
+          194,
+          195
+        ]
+      ],
+      "referenceSolution": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        [
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27
+        ],
+        [
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41
+        ],
+        [
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55
+        ],
+        [
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          62,
+          63,
+          64,
+          65,
+          66,
+          67,
+          68,
+          69
+        ],
+        [
+          70,
+          71,
+          72,
+          73,
+          74,
+          75,
+          76,
+          77,
+          78,
+          79,
+          80,
+          81,
+          82,
+          83
+        ],
+        [
+          84,
+          85,
+          86,
+          87,
+          88,
+          89,
+          90,
+          91,
+          92,
+          93,
+          94,
+          95,
+          96,
+          97
+        ],
+        [
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111
+        ],
+        [
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119,
+          120,
+          121,
+          122,
+          123,
+          124,
+          125
+        ],
+        [
+          126,
+          127,
+          128,
+          129,
+          130,
+          131,
+          132,
+          133,
+          134,
+          135,
+          136,
+          137,
+          138,
+          139
+        ],
+        [
+          140,
+          141,
+          142,
+          143,
+          144,
+          145,
+          146,
+          147,
+          148,
+          149,
+          150,
+          151,
+          152,
+          153
+        ],
+        [
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          162,
+          163,
+          164,
+          165,
+          166,
+          167
+        ],
+        [
+          168,
+          169,
+          170,
+          171,
+          172,
+          173,
+          174,
+          175,
+          176,
+          177,
+          178,
+          179,
+          180,
+          181
+        ],
+        [
+          182,
+          183,
+          184,
+          185,
+          186,
+          187,
+          188,
+          189,
+          190,
+          191,
+          192,
+          193,
+          194,
+          195
+        ]
+      ]
+    },
+    "assignment": {
+      "0": 0,
+      "1": 0,
+      "2": 0,
+      "3": 0,
+      "4": 0,
+      "5": 0,
+      "6": 0,
+      "7": 0,
+      "8": 0,
+      "9": 0,
+      "10": 0,
+      "11": 0,
+      "12": 0,
+      "13": 0,
+      "14": 1,
+      "15": 1,
+      "16": 1,
+      "17": 1,
+      "18": 1,
+      "19": 1,
+      "20": 1,
+      "21": 1,
+      "22": 1,
+      "23": 1,
+      "24": 1,
+      "25": 1,
+      "26": 1,
+      "27": 1,
+      "28": 2,
+      "29": 2,
+      "30": 2,
+      "31": 2,
+      "32": 2,
+      "33": 2,
+      "34": 2,
+      "35": 2,
+      "36": 2,
+      "37": 2,
+      "38": 2,
+      "39": 2,
+      "40": 2,
+      "41": 2,
+      "42": 3,
+      "43": 3,
+      "44": 3,
+      "45": 3,
+      "46": 3,
+      "47": 3,
+      "48": 3,
+      "49": 3,
+      "50": 3,
+      "51": 3,
+      "52": 3,
+      "53": 3,
+      "54": 3,
+      "55": 3,
+      "56": 4,
+      "57": 4,
+      "58": 4,
+      "59": 4,
+      "60": 4,
+      "61": 4,
+      "62": 4,
+      "63": 4,
+      "64": 4,
+      "65": 4,
+      "66": 4,
+      "67": 4,
+      "68": 4,
+      "69": 4,
+      "70": 5,
+      "71": 5,
+      "72": 5,
+      "73": 5,
+      "74": 5,
+      "75": 5,
+      "76": 5,
+      "77": 5,
+      "78": 5,
+      "79": 5,
+      "80": 5,
+      "81": 5,
+      "82": 5,
+      "83": 5,
+      "84": 6,
+      "85": 6,
+      "86": 6,
+      "87": 6,
+      "88": 6,
+      "89": 6,
+      "90": 6,
+      "91": 6,
+      "92": 6,
+      "93": 6,
+      "94": 6,
+      "95": 6,
+      "96": 6,
+      "97": 6,
+      "98": 7,
+      "99": 7,
+      "100": 7,
+      "101": 7,
+      "102": 7,
+      "103": 7,
+      "104": 7,
+      "105": 7,
+      "106": 7,
+      "107": 7,
+      "108": 7,
+      "109": 7,
+      "110": 7,
+      "111": 7,
+      "112": 8,
+      "113": 8,
+      "114": 8,
+      "115": 8,
+      "116": 8,
+      "117": 8,
+      "118": 8,
+      "119": 8,
+      "120": 8,
+      "121": 8,
+      "122": 8,
+      "123": 8,
+      "124": 8,
+      "125": 8,
+      "126": 9,
+      "127": 9,
+      "128": 9,
+      "129": 9,
+      "130": 9,
+      "131": 9,
+      "132": 9,
+      "133": 9,
+      "134": 9,
+      "135": 9,
+      "136": 9,
+      "137": 9,
+      "138": 9,
+      "139": 9,
+      "140": 10,
+      "141": 10,
+      "142": 10,
+      "143": 10,
+      "144": 10,
+      "145": 10,
+      "146": 10,
+      "147": 10,
+      "148": 10,
+      "149": 10,
+      "150": 10,
+      "151": 10,
+      "152": 10,
+      "153": 10,
+      "154": 11,
+      "155": 11,
+      "156": 11,
+      "157": 11,
+      "158": 11,
+      "159": 11,
+      "160": 11,
+      "161": 11,
+      "162": 11,
+      "163": 11,
+      "164": 11,
+      "165": 11,
+      "166": 11,
+      "167": 11,
+      "168": 12,
+      "169": 12,
+      "170": 12,
+      "171": 12,
+      "172": 12,
+      "173": 12,
+      "174": 12,
+      "175": 12,
+      "176": 12,
+      "177": 12,
+      "178": 12,
+      "179": 12,
+      "180": 12,
+      "181": 12,
+      "182": 13,
+      "183": 13,
+      "184": 13,
+      "185": 13,
+      "186": 13,
+      "187": 13,
+      "188": 13,
+      "189": 13,
+      "190": 13,
+      "191": 13,
+      "192": 13,
+      "193": 13,
+      "194": 13,
+      "195": 13
+    },
+    "expected": {
+      "perRule": {
+        "contiguity": true,
+        "parity": true,
+        "coverage": true,
+        "districtCount": true,
+        "compactness": null,
+        "efficiencyGap": true
+      },
+      "offendingDistricts": [],
+      "offendingCells": [],
+      "complete": true,
+      "seats": 8,
+      "minSeats": 8,
+      "seatsOk": true,
+      "compactnessGrade": null,
+      "efficiencyGap": 0.42857142857142855,
+      "solved": true
+    }
+  }
+]

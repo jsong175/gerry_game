@@ -60,7 +60,7 @@ A `manifest.json` lists levels in unlock order (FR-5.1); each level is one file.
   "districtCount": 4,             // K (FR-3.4)
   "districtSize": 4,              // exact parity target (FR-3.2)
   "winCondition": {               // FR-4.3
-    "minSeats": 3,                // Jerry districts required
+    "minSeats": 2,                // Jerry districts required (L1: 2 of 4 is the minority max)
     "compactnessMinGrade": null,  // "C" for L4 (FR-3.5), else null
     "minEfficiencyGap": null      // L6: solver-committed required gap (target +0.15, may be loosened), FR-3.8; else null
   },

@@ -1,0 +1,268 @@
+{
+  "id": "L1",
+  "name": "The Basics of Packing and Cracking",
+  "shape": "square",
+  "gridWidth": 4,
+  "gridHeight": 4,
+  "districtCount": 4,
+  "districtSize": 4,
+  "winCondition": {
+    "minSeats": 2,
+    "compactnessMinGrade": null,
+    "minEfficiencyGap": null
+  },
+  "cells": [
+    {
+      "id": 0,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "col": 0,
+      "row": 0
+    },
+    {
+      "id": 1,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "col": 1,
+      "row": 0
+    },
+    {
+      "id": 2,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "col": 2,
+      "row": 0
+    },
+    {
+      "id": 3,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 3,
+      "row": 0
+    },
+    {
+      "id": 4,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 0,
+      "row": 1
+    },
+    {
+      "id": 5,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 1,
+      "row": 1
+    },
+    {
+      "id": 6,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 2,
+      "row": 1
+    },
+    {
+      "id": 7,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 3,
+      "row": 1
+    },
+    {
+      "id": 8,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "col": 0,
+      "row": 2
+    },
+    {
+      "id": 9,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 1,
+      "row": 2
+    },
+    {
+      "id": 10,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "col": 2,
+      "row": 2
+    },
+    {
+      "id": 11,
+      "party": "jerry",
+      "fixed": false,
+      "void": false,
+      "col": 3,
+      "row": 2
+    },
+    {
+      "id": 12,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 0,
+      "row": 3
+    },
+    {
+      "id": 13,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 1,
+      "row": 3
+    },
+    {
+      "id": 14,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 2,
+      "row": 3
+    },
+    {
+      "id": 15,
+      "party": "opponent",
+      "fixed": false,
+      "void": false,
+      "col": 3,
+      "row": 3
+    }
+  ],
+  "adjacency": [
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      5
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      3,
+      7
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      4,
+      8
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      5,
+      9
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      6,
+      10
+    ],
+    [
+      7,
+      11
+    ],
+    [
+      8,
+      9
+    ],
+    [
+      8,
+      12
+    ],
+    [
+      9,
+      10
+    ],
+    [
+      9,
+      13
+    ],
+    [
+      10,
+      11
+    ],
+    [
+      10,
+      14
+    ],
+    [
+      11,
+      15
+    ],
+    [
+      12,
+      13
+    ],
+    [
+      13,
+      14
+    ],
+    [
+      14,
+      15
+    ]
+  ],
+  "referenceSolution": [
+    [
+      0,
+      1,
+      2,
+      3
+    ],
+    [
+      4,
+      5,
+      6,
+      7
+    ],
+    [
+      8,
+      9,
+      10,
+      11
+    ],
+    [
+      12,
+      13,
+      14,
+      15
+    ]
+  ]
+}

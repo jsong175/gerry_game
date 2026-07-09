@@ -1,0 +1,7 @@
+# Offline engine dependencies (ARCHITECTURE.md Dependency Rules: stdlib +
+# NetworkX / NumPy only; pandas optional and currently unused).
+networkx>=3.0
+numpy>=1.24
+# Test tooling
+pytest>=8.0
+pytest-cov>=5.0
