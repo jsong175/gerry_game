@@ -61,6 +61,15 @@ export function PlayScreen({
           <button className="btn-ghost small" disabled={!game.canRedo} onClick={game.redo} aria-label="redo">
             ↻
           </button>
+          <button
+            className="btn-ghost small"
+            disabled={!game.canClear}
+            onClick={game.clear}
+            aria-label="clear all districts"
+            title="Clear all districts"
+          >
+            ✕
+          </button>
         </span>
       </header>
 

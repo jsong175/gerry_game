@@ -124,6 +124,81 @@ def seat_count(groups: dict[int, list[int]], party: dict[int, str]) -> int:
     return sum(1 for m in groups.values() if district_winner(m, party) == "jerry")
 
 
+def connected_components(adj: dict[int, set[int]], nodes: set[int]) -> list[list[int]]:
+    """Connected components of the subgraph induced on ``nodes``, via the shared graph."""
+    seen: set[int] = set()
+    out: list[list[int]] = []
+    for start in sorted(nodes):
+        if start in seen:
+            continue
+        comp: list[int] = []
+        queue = deque([start])
+        seen.add(start)
+        while queue:
+            node = queue.popleft()
+            comp.append(node)
+            for nb in adj.get(node, ()):
+                if nb in nodes and nb not in seen:
+                    seen.add(nb)
+                    queue.append(nb)
+        out.append(sorted(comp))
+    return out
+
+
+def stranded_in_graph(
+    adj: dict[int, set[int]],
+    available: set[int],
+    size: int,
+    capacity: dict[int, tuple[int, set[int]]] | None = None,
+) -> list[list[int]]:
+    """Unassigned components that can never be tiled into full districts.
+
+    DESIGN.md "Stranding warning". With every district complete this is the plain
+    modulo test: a component whose size is not a whole multiple of ``size`` can
+    never be partitioned into full districts.
+
+    ``capacity`` maps an *unfinished* district's id to ``(cells it still needs,
+    cells it already holds)``. Such a district will draw its remaining cells out of
+    the components it touches, so a component of size ``n`` is fine as long as its
+    remainder ``n % size`` can be handed to an adjacent unfinished district. Without
+    this, one tap into a 6-triangle district would flag the other 35 cells.
+
+    Note the remainder — not the whole need — is what must be absorbed, and it is
+    compared against each adjacent district's capacity rather than subtracted from
+    the component: a district owed 2 cells that touches two components can satisfy
+    both if each only needs to shed 1.
+
+    The flood-fill walks ``adj`` — the level's shared adjacency graph — never a
+    square-grid neighbour assumption, so it is correct on the triangular lattice.
+    """
+    stranded: list[list[int]] = []
+    for comp in connected_components(adj, available):
+        comp_set = set(comp)
+        absorbable = sum(
+            need
+            for need, members in (capacity or {}).values()
+            if any(nb in comp_set for m in members for nb in adj.get(m, ()))
+        )
+        if len(comp) % size > absorbable:
+            stranded.append(comp)
+    return stranded
+
+
+def stranded_pockets(level: dict, assignment: dict[int, int]) -> list[list[int]]:
+    """Stranded unassigned pockets for a live board (mirrored in web/src/state/stranding.ts)."""
+    adj = build_adjacency(level)
+    size = level["districtSize"]
+    clean = {cid: did for cid, did in assignment.items() if did is not None}
+    groups = district_groups(clean)
+    capacity = {
+        did: (size - len(members), set(members))
+        for did, members in groups.items()
+        if len(members) < size
+    }
+    available = {cid for cid in assignable_ids(level) if cid not in clean}
+    return stranded_in_graph(adj, available, size, capacity)
+
+
 def compactness(adj: dict[int, set[int]], groups: dict[int, list[int]]):
     """FR-3.5. Mean perimeter-to-area ratio -> letter grade. (grade, mean_ratio)."""
     if not groups:

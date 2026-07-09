@@ -2,11 +2,15 @@
 
 Usage:  py -m engine.export_fixtures
 
-Builds a set of (level, assignment) cases, computes the authoritative
-``rules.validate`` output for each, and writes them to
-``engine/fixtures/rule_cases.json``. The TypeScript test suite loads the same
-file and asserts its port produces identical results (ARCHITECTURE.md: the rule
-code exists on both sides and "cannot disagree").
+Builds a set of (level, assignment) cases, computes the authoritative Python
+output for each, and writes them to ``engine/fixtures/``:
+
+* ``rule_cases.json``      -> expected ``rules.validate`` results;
+* ``stranding_cases.json`` -> expected ``rules.stranded_pockets`` results.
+
+The TypeScript test suite loads the same files and asserts its port produces
+identical results (ARCHITECTURE.md: the rule code exists on both sides and
+"cannot disagree").
 """
 
 from __future__ import annotations
@@ -19,7 +23,9 @@ from .generator import build_level
 from .geometry import build_square
 from .levels import LEVEL_SPECS
 
-FIXTURE_PATH = Path(__file__).resolve().parent / "fixtures" / "rule_cases.json"
+FIXTURE_DIR = Path(__file__).resolve().parent / "fixtures"
+FIXTURE_PATH = FIXTURE_DIR / "rule_cases.json"
+STRANDING_PATH = FIXTURE_DIR / "stranding_cases.json"
 
 
 def _tiny_level(party_rows, k, size, win):
@@ -99,11 +105,81 @@ def build_cases() -> list[dict]:
     return out
 
 
+def build_stranding_cases() -> list[dict]:
+    """Boards that pin the stranding flood-fill (DESIGN.md "Stranding warning").
+
+    The triangular cases are the ones that matter: they only come out right if the
+    flood-fill walks the shared adjacency graph and credits an unfinished district
+    with the cells it still owes.
+    """
+    built = {spec["id"]: build_level(spec) for spec in LEVEL_SPECS}
+    l1, l3, l5 = built["L1"], built["L3"], built["L5"]
+
+    def ref(level, count):
+        return {
+            str(cid): did
+            for did, members in enumerate(level["referenceSolution"][:count])
+            for cid in members
+        }
+
+    def taps(level, n):
+        """The first ``n`` taps of the level's first reference district, in BFS order."""
+        adj = rules.build_adjacency(level)
+        members = set(level["referenceSolution"][0])
+        order, seen, queue = [], {min(members)}, [min(members)]
+        while queue:
+            node = queue.pop(0)
+            order.append(node)
+            for nb in sorted(adj[node]):
+                if nb in members and nb not in seen:
+                    seen.add(nb)
+                    queue.append(nb)
+        return {str(cid): 0 for cid in order[:n]}
+
+    cases = [
+        # A valid partition-in-progress: remaining cells are a whole multiple of 6.
+        ("l3_two_committed_districts", l3, ref(l3, 2)),
+        ("l3_five_committed_districts", l3, ref(l3, 5)),
+        # One tap into a 6-triangle district: the district still owes 5 cells.
+        ("l3_mid_build_one_tap", l3, {str(l3["referenceSolution"][0][0]): 0}),
+        # Four taps in, the district pinches off a 1-cell pocket it will absorb
+        # itself, alongside the 31-cell rest of the board. Neither is stranded.
+        ("l3_mid_build_four_taps_pinches_a_pocket", l3, taps(l3, 4)),
+        ("l3_mid_build_five_taps", l3, taps(l3, 5)),
+        # The apex triangle has a single neighbour; walling it off strands it.
+        ("l3_walled_off_apex", l3, {"2": 0, "1": 0, "3": 0, "5": 0, "7": 0, "4": 0}),
+        ("l1_empty_board", l1, {}),
+        ("l1_mid_build_one_tap", l1, {str(l1["referenceSolution"][0][0]): 0}),
+        ("l1_two_committed_districts", l1, ref(l1, 2)),
+        # Around the lake: the void cells are not vertices, so they cannot strand.
+        ("l5_three_committed_districts", l5, ref(l5, 3)),
+    ]
+
+    out = []
+    for name, level, assignment in cases:
+        int_assignment = {int(k): v for k, v in assignment.items()}
+        out.append(
+            {
+                "name": name,
+                "level": level,
+                "assignment": assignment,
+                "expected": rules.stranded_pockets(level, int_assignment),
+            }
+        )
+    return out
+
+
 def main() -> None:
-    FIXTURE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    FIXTURE_DIR.mkdir(parents=True, exist_ok=True)
     cases = build_cases()
     FIXTURE_PATH.write_text(json.dumps(cases, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"Wrote {len(cases)} rule cases -> {FIXTURE_PATH}")
+
+    stranding = build_stranding_cases()
+    STRANDING_PATH.write_text(
+        json.dumps(stranding, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
+    print(f"Wrote {len(stranding)} stranding cases -> {STRANDING_PATH}")
 
 
 if __name__ == "__main__":

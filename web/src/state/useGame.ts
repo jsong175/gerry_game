@@ -24,7 +24,7 @@ type Action =
   | { type: "cellEnter"; id: number }
   | { type: "undo" }
   | { type: "redo" }
-  | { type: "reset" };
+  | { type: "clear" };
 
 export interface DistrictInfo {
   id: number;
@@ -126,13 +126,15 @@ export function makeReducer(level: Level, adj: Map<number, Set<number>>) {
           future: state.future.slice(1),
         };
       }
-      case "reset":
-        return {
-          assignment: new Map(),
-          active: null,
-          past: [...state.past, state.assignment].slice(-HISTORY_DEPTH),
-          future: [],
-        };
+      case "clear": {
+        // Wipe every non-fixed assignment back to an empty board in one action
+        // (DESIGN.md Resolved Decisions). Independent of the history stack, but
+        // pushed onto it so a single undo restores the pre-clear board.
+        const next = new Map(state.assignment);
+        for (const cid of state.assignment.keys()) if (editable(cid)) next.delete(cid);
+        if (next.size === state.assignment.size) return state; // nothing to clear
+        return applyEdit(state, next, null);
+      }
       default:
         return state;
     }
@@ -147,11 +149,12 @@ export interface UseGame {
   districtInfo: Map<number, DistrictInfo>;
   canUndo: boolean;
   canRedo: boolean;
+  canClear: boolean;
   cellDown: (id: number) => void;
   cellEnter: (id: number) => void;
   undo: () => void;
   redo: () => void;
-  reset: () => void;
+  clear: () => void;
 }
 
 export function useGame(level: Level): UseGame {
@@ -193,6 +196,15 @@ export function useGame(level: Level): UseGame {
     return info;
   }, [state.assignment, party, level.districtSize]);
 
+  const fixed = useMemo(
+    () => new Set(level.cells.filter((c) => c.fixed || c.void).map((c) => c.id)),
+    [level],
+  );
+  const canClear = useMemo(
+    () => [...state.assignment.keys()].some((cid) => !fixed.has(cid)),
+    [state.assignment, fixed],
+  );
+
   return {
     assignment: state.assignment,
     active: state.active,
@@ -201,10 +213,11 @@ export function useGame(level: Level): UseGame {
     districtInfo,
     canUndo: state.past.length > 0,
     canRedo: state.future.length > 0,
+    canClear,
     cellDown: useCallback((id: number) => dispatch({ type: "cellDown", id }), []),
     cellEnter: useCallback((id: number) => dispatch({ type: "cellEnter", id }), []),
     undo: useCallback(() => dispatch({ type: "undo" }), []),
     redo: useCallback(() => dispatch({ type: "redo" }), []),
-    reset: useCallback(() => dispatch({ type: "reset" }), []),
+    clear: useCallback(() => dispatch({ type: "clear" }), []),
   };
 }

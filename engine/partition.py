@@ -5,26 +5,20 @@ districts. If a partition exists it is the proof the level is solvable; the
 generator later assigns parties so that this partition also meets the win
 condition, and the whole thing is re-validated before shipping.
 
-Two paths:
+``grow_partition`` is a randomized region-growing search over any graph — square,
+triangular, or holed by Level 5's lake — pruned by the shared stranding check so it
+never paints itself into a corner. It is the only reference-solution strategy:
+deterministic carve-ups are the naive baselines FR-5.4 forbids.
 
-* deterministic constructions (rows, blocks) for hole-free rectangles, which are
-  trivially contiguous and equal-size; and
-* a randomized region-growing search (``grow_partition``) for irregular graphs
-  (the triangular lattice, the Level 5 lake), pruned by a stranding check so it
-  never paints itself into a corner.
+``block_partition`` remains as one of those baselines (see ``difficulty.py``), not
+as a way to solve a level.
 """
 
 from __future__ import annotations
 
 import random
-from collections import deque
 
-
-def row_partition(width: int, height: int, size: int) -> list[list[int]]:
-    """Each district is one full row. Requires ``size == width``."""
-    if size != width:
-        raise ValueError("row_partition requires size == width")
-    return [[row * width + col for col in range(width)] for row in range(height)]
+from . import rules
 
 
 def block_partition(width: int, height: int, bw: int, bh: int) -> list[list[int]]:
@@ -44,29 +38,13 @@ def block_partition(width: int, height: int, bw: int, bh: int) -> list[list[int]
 
 
 def _components_ok(adj: dict[int, set[int]], available: set[int], size: int) -> bool:
-    """Every connected component of ``available`` has size divisible by ``size``.
+    """No leftover component is stranded, i.e. every one tiles into full districts.
 
-    This is the stranding test (DESIGN.md "Stranding warning") used as a search
-    prune: a component whose size is not a multiple of the district size can
-    never be tiled into full districts.
+    The same stranding test the client shows the player (DESIGN.md "Stranding
+    warning"), reused here as a search prune so the grower never paints itself into
+    a corner. Every district built so far is complete, so nothing is owed capacity.
     """
-    seen: set[int] = set()
-    for node in available:
-        if node in seen:
-            continue
-        comp = 0
-        queue = deque([node])
-        seen.add(node)
-        while queue:
-            cur = queue.popleft()
-            comp += 1
-            for nb in adj[cur]:
-                if nb in available and nb not in seen:
-                    seen.add(nb)
-                    queue.append(nb)
-        if comp % size:
-            return False
-    return True
+    return not rules.stranded_in_graph(adj, available, size)
 
 
 def _degree_in(adj: dict[int, set[int]], node: int, subset: set[int]) -> int:

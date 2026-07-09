@@ -101,6 +101,55 @@ describe("district-forming interaction (useGame reducer)", () => {
     expect(redone.assignment.size).toBe(16);
   });
 
+  it("clears every non-fixed assignment in one action", () => {
+    const solved = solveFromReference();
+    expect(solved.assignment.size).toBe(16);
+    const cleared = reducer(solved, { type: "clear" });
+    expect(cleared.assignment.size).toBe(0);
+    expect(cleared.active).toBeNull();
+  });
+
+  it("leaves fixed and void cells untouched when clearing", () => {
+    // Pin a cell as fixed and pre-assign it, the way FR-1.6 allows a level to.
+    const pinned = level.cells[0].id;
+    const fixedLevel: Level = {
+      ...level,
+      cells: level.cells.map((c) => (c.id === pinned ? { ...c, fixed: true } : c)),
+    };
+    const fixedReducer = makeReducer(fixedLevel, adj);
+    const seeded: GameState = {
+      assignment: new Map([
+        [pinned, 0],
+        [level.cells[1].id, 1],
+      ]),
+      active: null,
+      past: [],
+      future: [],
+    };
+    const cleared = fixedReducer(seeded, { type: "clear" });
+    expect(cleared.assignment.get(pinned)).toBe(0); // fixed: survives the clear
+    expect(cleared.assignment.has(level.cells[1].id)).toBe(false);
+  });
+
+  it("clears with an empty undo stack, and one undo restores the board", () => {
+    // Build a board without ever pushing history, so past is empty at clear time.
+    const board = new Map(solveFromReference().assignment);
+    const fresh: GameState = { assignment: board, active: null, past: [], future: [] };
+
+    const cleared = reducer(fresh, { type: "clear" });
+    expect(cleared.assignment.size).toBe(0);
+    expect(cleared.past.length).toBe(1); // clear is itself one undoable action
+
+    const restored = reducer(cleared, { type: "undo" });
+    expect(restored.assignment).toEqual(board);
+    expect(validate(level, restored.assignment).solved).toBe(true);
+  });
+
+  it("is a no-op on an already-empty board", () => {
+    const state = reducer(START, { type: "clear" });
+    expect(state).toBe(START); // no history entry pushed
+  });
+
   it("caps undo history at 15 snapshots", () => {
     let state: GameState = START;
     // 16 taps across the reference order produce 16 history pushes.

@@ -1,18 +1,28 @@
-"""Level generator: build geometry, assign parties, prove solvability (FR-5.2, FR-5.3).
+"""Level generator: build geometry, assign parties, prove solvability and difficulty.
 
-For each level we (1) build the grid, (2) compute a reference partition into K
-contiguous equal districts, (3) assign per-cell parties so that this partition
-wins exactly the target number of seats while Jerry stays strictly < 50% overall
-(FR-1.2), and (4) re-validate the reference with the shared rule logic. A level
-that does not validate SOLVED is rejected, never shipped.
+For each level we (1) build the grid, (2) search for a reference partition into K
+contiguous equal districts, (3) assign per-cell parties so that this partition wins
+exactly the target number of seats while Jerry stays strictly < 50% overall
+(FR-1.2), and (4) re-validate the reference with the shared rule logic.
+
+A level that does not validate SOLVED is rejected (FR-5.3), and so is one that
+falls outside the FR-5.4 difficulty band — trivially winnable by a naive baseline,
+pre-clustered, or so tight that its solution is effectively unique. Rejected
+candidates are regenerated from a fresh seed, never shipped.
 """
 
 from __future__ import annotations
 
 import random
 
-from . import rules
+from . import difficulty, rules
 from .geometry import Grid, build_square, build_triangle
+
+# How many fresh seeds to try before giving up on a level spec.
+MAX_ATTEMPTS = 60
+# Distance between attempt seeds; coprime with the small level seeds so the
+# randomized partition search and the party placement both move each attempt.
+SEED_STRIDE = 1009
 
 
 def evenly_spread(k: int, n: int) -> set[int]:
@@ -26,25 +36,80 @@ def evenly_spread(k: int, n: int) -> set[int]:
     return set(chosen)
 
 
-def assign_parties(
-    grid: Grid, partition: list[list[int]], min_seats: int, size: int, seed: int
-) -> None:
-    """Pack/crack party assignment so ``partition`` wins exactly ``min_seats``.
+def max_extra_jerry(k: int, size: int, min_seats: int) -> int:
+    """The most Jerry cells we can add above the bare seat-target minimum.
 
-    Jerry-win districts get the minimal strict majority (size//2 + 1); the rest
-    are packed 100% opponent. This minimises Jerry's vote share (keeping him < 50%)
-    while maximising seats — the core gerrymander (FR-1.2, DESIGN.md Story & Tone).
+    Bounded by (a) how many Jerry voters a losing district can absorb while the
+    opponent keeps a strict majority there, and (b) FR-1.2: Jerry stays strictly
+    under half of all assignable cells.
+    """
+    win = difficulty.cells_to_win(size)
+    loser_cap = (size - 1) // 2  # opponent still holds a strict majority
+    under_half = (k * size - 1) // 2 - min_seats * win
+    return max(0, min((k - min_seats) * loser_cap, under_half))
+
+
+def jerry_targets(k: int, size: int, min_seats: int, extra: int) -> list[int]:
+    """Per-district Jerry cell counts: minimal winning majorities plus ``extra`` slack.
+
+    Winning districts take the bare strict majority — the classic "crack" — and the
+    slack is spread evenly across the packed losing districts, which keeps Jerry's
+    voters distributed instead of concentrated (FR-5.4 distribution).
+    """
+    win_indices = evenly_spread(k, min_seats)
+    win = difficulty.cells_to_win(size)
+    loser_cap = (size - 1) // 2
+    losers = k - min_seats
+    base, rem = divmod(extra, losers) if losers else (0, 0)
+    counts: list[int] = []
+    seen_losers = 0
+    for idx in range(k):
+        if idx in win_indices:
+            counts.append(win)
+        else:
+            share = base + (1 if seen_losers < rem else 0)
+            counts.append(min(share, loser_cap))
+            seen_losers += 1
+    return counts
+
+
+def _jerry_pressure(adj: dict[int, set[int]], node: int, jerry: set[int]) -> tuple[int, int]:
+    """How crowded by existing Jerry voters a cell is, at one and two hops."""
+    near = sum(1 for nb in adj[node] if nb in jerry)
+    far = sum(1 for nb in adj[node] for nb2 in adj[nb] if nb2 in jerry and nb2 != node)
+    return (near, far)
+
+
+def assign_parties(
+    grid: Grid,
+    adj: dict[int, set[int]],
+    partition: list[list[int]],
+    counts: list[int],
+    seed: int,
+) -> None:
+    """Paint ``counts[i]`` Jerry cells into district ``i``, spreading them out.
+
+    Districts are filled majority-first so the winning districts' Jerry blocks land
+    before the losing districts', and each cell is chosen to sit as far from
+    existing Jerry voters as the district allows. That breaks up the all-opponent
+    runs that a naive "pack the losers 100% opponent" painter leaves behind
+    (FR-5.4 distribution; DESIGN.md Story & Tone).
     """
     by_id = {c.id: c for c in grid.cells}
+    for cell in grid.cells:
+        cell.party = "opponent"
     rng = random.Random(seed)
-    win_indices = evenly_spread(len(partition), min_seats)
-    jerry_target = size // 2 + 1
-    for idx, district in enumerate(partition):
-        members = list(district)
-        rng.shuffle(members)
-        take = jerry_target if idx in win_indices else 0
-        for i, cid in enumerate(members):
-            by_id[cid].party = "jerry" if i < take else "opponent"
+    jerry: set[int] = set()
+
+    for idx in sorted(range(len(partition)), key=lambda i: -counts[i]):
+        free = [cid for cid in partition[idx] if cid not in jerry]
+        for _ in range(counts[idx]):
+            pick = min(free, key=lambda n: (*_jerry_pressure(adj, n, jerry), rng.random()))
+            jerry.add(pick)
+            free.remove(pick)
+
+    for cid in jerry:
+        by_id[cid].party = "jerry"
 
 
 def _l5_void_candidates(width: int, height: int) -> list[set[int]]:
@@ -60,65 +125,81 @@ def _l5_void_candidates(width: int, height: int) -> list[set[int]]:
     ]
 
 
-def build_level(spec: dict) -> dict:
-    """Generate one validated level dict from a spec (see levels.py)."""
-    shape = spec["shape"]
-    if shape == "triangle":
+def _build_grid(spec: dict, voids: set[int]) -> Grid:
+    if spec["shape"] == "triangle":
         grid = build_triangle(spec["rows"])
     else:
         grid = build_square(spec["width"], spec["height"])
+    for cell in grid.cells:
+        cell.void = cell.id in voids
+    grid.edges = {e for e in grid.edges if not (voids & set(e))}
+    return grid
 
-    void_sets = [set()]
-    if spec.get("level5"):
-        void_sets = _l5_void_candidates(spec["width"], spec["height"])
 
+def build_level(spec: dict) -> dict:
+    """Generate one validated level dict from a spec (see levels.py).
+
+    Retries with fresh seeds until a candidate is both SOLVED (FR-5.3) and inside
+    the FR-5.4 difficulty band; raises if no seed produces one.
+    """
+    void_sets = (
+        _l5_void_candidates(spec["width"], spec["height"]) if spec.get("level5") else [set()]
+    )
     size = spec["districtSize"]
     k = spec["districtCount"]
-
+    min_seats = spec["minSeats"]
+    margin = difficulty.SLACK_MARGINS.get(spec["id"], 1)
+    ceiling = max_extra_jerry(k, size, min_seats)
     last_error = "no attempt made"
-    for voids in void_sets:
-        for c in grid.cells:
-            c.void = c.id in voids
-        # Drop void cells from adjacency.
-        grid.edges = {e for e in grid.edges if not (voids & set(e))}
-        adj = grid.adjacency()
-        nodes = grid.assignable_ids()
-        if len(nodes) != k * size:
-            last_error = f"assignable {len(nodes)} != K*S {k * size}"
-            continue
 
-        partition = _reference_partition(spec, grid, adj, nodes)
-        if partition is None:
-            last_error = "no contiguous equal partition found"
-            continue
+    for attempt in range(MAX_ATTEMPTS):
+        seed = spec.get("seed", 0) + attempt * SEED_STRIDE
+        for voids in void_sets:
+            grid = _build_grid(spec, voids)
+            adj = grid.adjacency()
+            nodes = grid.assignable_ids()
+            if len(nodes) != k * size:
+                last_error = f"assignable {len(nodes)} != K*S {k * size}"
+                continue
 
-        assign_parties(grid, partition, spec["minSeats"], size, spec.get("seed", 0))
-        level = _emit(spec, grid, partition)
+            partition = _reference_partition(spec, grid, adj, nodes, seed)
+            if partition is None:
+                last_error = "no contiguous equal partition found"
+                continue
 
-        result = rules.validate(level, _assignment_from_partition(partition))
-        if not result["solved"]:
-            last_error = f"reference not SOLVED: {result}"
-            continue
-        _assert_minority(level)
-        return level
+            # Prefer the most slack the level can carry, easing off only as far as
+            # the FR-5.4 margin: more slack means more winning partitions exist.
+            for extra in range(ceiling, margin - 1, -1):
+                counts = jerry_targets(k, size, min_seats, extra)
+                assign_parties(grid, adj, partition, counts, seed)
+                level = _emit(spec, grid, partition)
 
-    raise RuntimeError(f"Level {spec['id']} could not be generated: {last_error}")
+                result = rules.validate(level, _assignment_from_partition(partition))
+                if not result["solved"]:
+                    last_error = f"reference not SOLVED at extra={extra}: {result}"
+                    continue
+                accepted, reason = difficulty.gate(level)
+                if not accepted:
+                    last_error = f"difficulty gate at extra={extra}: {reason}"
+                    continue
+                _assert_minority(level)
+                return level
+
+    raise RuntimeError(
+        f"Level {spec['id']} could not be generated in {MAX_ATTEMPTS} attempts: {last_error}"
+    )
 
 
-def _reference_partition(spec, grid, adj, nodes):
+def _reference_partition(spec, grid, adj, nodes, seed):
+    """The proof of solvability (FR-5.3).
+
+    Always a randomized region-growing search: the deterministic row/block carve-ups
+    are exactly the naive baselines FR-5.4 forbids, so they can never be a level's
+    intended solution.
+    """
     from . import partition as part
 
-    strategy = spec["partition"]
-    if strategy == "rows":
-        return part.row_partition(grid.width, grid.height, spec["districtSize"])
-    if strategy == "blocks":
-        return part.block_partition(
-            grid.width, grid.height, spec["blockWidth"], spec["blockHeight"]
-        )
-    # "grow" — randomized search over the (possibly holed) graph.
-    return part.grow_partition(
-        adj, nodes, spec["districtCount"], spec["districtSize"], seed=spec.get("seed", 0)
-    )
+    return part.grow_partition(adj, nodes, spec["districtCount"], spec["districtSize"], seed=seed)
 
 
 def _assignment_from_partition(partition: list[list[int]]) -> dict[int, int]:

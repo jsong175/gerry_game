@@ -48,6 +48,22 @@ body {
   gap: 10px;
 }
 
+/* The play view must fit the viewport with no page scroll (DESIGN.md "Layout &
+   Screens"): pin it to the viewport height, let the board absorb what is left
+   after the fixed chrome, and let the SVG scale down inside it. */
+.screen.play {
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.play > .topbar,
+.play > .hud,
+.play > .toast,
+.play > .bottombar {
+  flex: 0 0 auto;
+}
+
 .tabular,
 .tally-count,
 .level-num {
@@ -174,12 +190,23 @@ button:disabled {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;
+  /* min-height:0 lets this flex item shrink below the SVG's natural size, which is
+     what actually stops the page from growing a scrollbar. */
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .grid-svg {
   display: block;
   filter: drop-shadow(0 3px 8px rgba(43, 43, 51, 0.1));
+}
+
+/* Fill the board box; preserveAspectRatio keeps square and triangular grids
+   undistorted and letterboxes the leftover space. */
+.board .grid-svg {
+  width: 100%;
+  height: 100%;
 }
 
 .bottombar {
@@ -269,6 +296,8 @@ button:disabled {
 }
 
 .example .grid-svg {
+  width: 100%;
+  height: auto;
   max-height: 120px;
 }
 

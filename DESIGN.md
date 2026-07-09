@@ -45,9 +45,9 @@ One friendly, rounded sans-serif used throughout, in at most two weights. Someth
 
 ## Layout & Screens
 
-Portrait-first, phone-shaped. On a wider desktop window the play area stays centered in a phone-width column so the composition never stretches awkwardly. The core play screen is a single, non-scrolling view:
+Portrait-first, phone-shaped. On a wider desktop window the play area stays centered in a phone-width column so the composition never stretches awkwardly. The entire play view MUST fit within the browser viewport with no page scrolling on desktop: the top bar, progress strip, grid, and bottom bar are always visible at once, and the grid scales to the available height so nothing overflows. No scrollbars. The core play screen is a single, non-scrolling view:
 
-- **Top bar (HUD):** level name on the left; undo and redo buttons on the right.
+- **Top bar (HUD):** level name on the left; undo, redo, and clear buttons on the right.
 - **Progress strip (under the top bar):** the seat tally and the active-rules checklist (see HUD & Feedback).
 - **Center:** the grid, taking the majority of the screen.
 - **Bottom bar:** the primary action button ("Rig the Election!" / submit). No district picker is needed — each new district starts automatically on the next tap of an unassigned cell.
@@ -82,11 +82,13 @@ The top design priority is that forming a district feels effortless. The primary
 
 Because two neighboring districts of the same majority would read as the same tint, each committed district also keeps its bold border and a small district number so adjacent districts stay visually distinct. Voter cells keep their own party color and icon *inside* the tint — the tint answers "who wins here," the cells answer "why."
 
+Border weight is relative to cell size, not a fixed pixel value. On the triangular level (Level 3) the unit triangles are small, so the district outlines and cell borders MUST be rendered proportionally thinner than on the square levels; the heavy square-grid border weight looks bushy and overwhelms the triangles.
+
 **Editing a district.** To change a completed district, the player **taps it again** to re-enter edit mode; a small tooltip on the district reads *"click to edit the district."* In edit mode the district un-bolds and its cells can be removed or added, still respecting adjacency and the size cap. Removing a cell returns it to unassigned unless it is fixed (FR-1.6 / FR-2.5). Fixed and void cells are visually locked — void cells (e.g., the Level 5 lake) render as non-playable terrain, not voters, so it's clear they belong to no district.
 
-**Stranding warning.** After each edit the game scans the unassigned cells for **stranded pockets** — connected components cut off from the rest by committed districts, void cells, or the board edge. It warns whenever a pocket's size is **not a whole multiple of the district size**, because such a pocket can only be filled by districts drawn entirely inside it, and a component that isn't a multiple of the district size can never be partitioned into full districts. This one modulo test (after a flood-fill) cheaply catches every case that matters — pockets smaller than a single district *and* oversized leftovers like size S+2 — with no solver call. Pockets that *are* a multiple of the district size are legitimate (they become whole districts) and are left alone. The warning is a small, non-blocking pop-up (*"Careful — you've stranded a few voters who can't form a full district."*); the player can undo or keep going. The rare case of a correctly-sized pocket that still can't be tiled into contiguous districts is left for final validation to catch.
+**Stranding warning.** After each edit the game scans the unassigned cells for **stranded pockets** — connected components cut off from the rest by committed districts, void cells, or the board edge. It warns whenever a pocket's size is **not a whole multiple of the district size**, because such a pocket can only be filled by districts drawn entirely inside it, and a component that isn't a multiple of the district size can never be partitioned into full districts. The flood-fill MUST walk the level's shared adjacency graph (the same one every other rule uses), never a square-grid neighbor assumption; otherwise it mis-splits a connected region on the triangular level and fires false warnings on districts that are actually valid. Only **committed** districts wall a pocket off: a district still being built has not claimed its remaining cells yet, and it will draw them out of the regions it touches, so a region is stranded only when the cells it has left over (its size modulo the district size) exceed what the adjacent unfinished district still needs. Without this the very first tap of a district would warn, since one cell of a six-cell district leaves 35 unassigned and 35 is not a multiple of 6. This one modulo test (after a flood-fill) cheaply catches every case that matters — pockets smaller than a single district *and* oversized leftovers like size S+2 — with no solver call. Pockets that *are* a multiple of the district size are legitimate (they become whole districts) and are left alone. The warning is a small, non-blocking pop-up (*"Careful — you've stranded a few voters who can't form a full district."*); the player can undo or keep going. The rare case of a correctly-sized pocket that still can't be tiled into contiguous districts is left for final validation to catch.
 
-A top-bar **undo** button steps back through recent edits and a **redo** button re-applies an undone edit. (History depth follows FR-2.4; if a shallow depth feels punishing during playtest, this is the first thing to loosen.)
+A top-bar **undo** button steps back through recent edits and a **redo** button re-applies an undone edit. (History depth follows FR-2.4; if a shallow depth feels punishing during playtest, this is the first thing to loosen.) A third top-bar **clear** button unassigns every non-fixed cell at once, wiping all districts back to an empty board so the player can restart the partition without stepping back one edit at a time. Clear is distinct from undo/redo, does not depend on the history stack, and is itself undoable.
 
 ## HUD & Feedback
 
@@ -129,6 +131,9 @@ Permitted: color/opacity fades on district commit, button press states, modal sl
 
 ## Resolved Decisions
 
-- **Stranding warning:** fires on any stranded pocket whose size is not a whole multiple of the district size — a cheap flood-fill + modulo check (see Forming Districts).
+- **Stranding warning:** fires on any stranded pocket whose size is not a whole multiple of the district size — a cheap flood-fill + modulo check over the shared adjacency graph, discounting the cells an unfinished district still owes (see Forming Districts).
 - **Level Select:** a simple vertical scrolling list, not a themed campaign map.
 - **Intro-card diagrams:** generated from the in-game grid renderer, not hand-drawn per level.
+- **Clear control:** a top-bar Clear button unassigns all non-fixed cells at once (distinct from undo/redo, and itself undoable).
+- **Viewport fit:** the play view must fit the browser viewport with no page scroll on desktop; the grid scales to available height.
+- **Triangle border weight:** district and cell borders are sized relative to cell size, rendered proportionally thinner on the small triangular-level cells.

@@ -3,7 +3,8 @@
 import pytest
 
 from engine import rules
-from engine.generator import build_level, evenly_spread
+from engine.generator import assign_parties, build_level, evenly_spread
+from engine.geometry import build_square
 from engine.levels import LEVEL_SPECS
 
 
@@ -52,3 +53,26 @@ def test_evenly_spread_returns_distinct_indices():
         spread = evenly_spread(k, n)
         assert len(spread) == n
         assert all(0 <= i < k for i in spread)
+
+
+def test_assign_parties_paints_exactly_the_requested_counts():
+    grid = build_square(4, 4)
+    adj = grid.adjacency()
+    partition = [[0, 1, 4, 5], [2, 3, 6, 7], [8, 9, 12, 13], [10, 11, 14, 15]]
+    assign_parties(grid, adj, partition, [3, 3, 1, 0], seed=7)
+    by_id = {c.id: c for c in grid.cells}
+    for members, want in zip(partition, [3, 3, 1, 0]):
+        assert sum(1 for cid in members if by_id[cid].party == "jerry") == want
+
+
+def test_assign_parties_separates_jerry_voters_inside_a_district():
+    # A 1-of-4 district must not put its lone Jerry voter next to the neighbouring
+    # district's Jerry block if a farther cell is free (FR-5.4 distribution).
+    grid = build_square(4, 4)
+    adj = grid.adjacency()
+    partition = [[0, 1, 4, 5], [2, 3, 6, 7], [8, 9, 12, 13], [10, 11, 14, 15]]
+    assign_parties(grid, adj, partition, [3, 0, 1, 0], seed=3)
+    by_id = {c.id: c for c in grid.cells}
+    lone = next(cid for cid in partition[2] if by_id[cid].party == "jerry")
+    packed = {cid for cid in partition[0] if by_id[cid].party == "jerry"}
+    assert not (adj[lone] & packed), "the slack voter hugged the packed district"

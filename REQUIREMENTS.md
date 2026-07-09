@@ -56,6 +56,10 @@ A level-based educational puzzle game that demonstrates the mathematics of gerry
 - **FR-5.1** The game MUST present levels in an ordered sequence of increasing complexity. A level MUST be marked complete when it is SOLVED per FR-4.4. Completing a level MUST unlock the next level in sequence.
 - **FR-5.2** Each level MUST be fully specified by its data: grid dimensions, per-cell affiliations, fixed/void cells, district count `K`, active validation rules, and the target win condition. 
 - **FR-5.3** All level configurations MUST be mathematically guaranteed to be solvable via a backend pre-generation script.
+- **FR-5.4 (Non-trivial, fair difficulty)** Solvability (FR-5.3) is necessary but NOT sufficient. Every generated level MUST also satisfy a difficulty band with a lower and an upper bound, and MUST be regenerated if it falls outside it:
+  - **Lower bound (instructive):** naive baseline partitions MUST fail the win condition, so the player is forced to apply the level's intended technique. At minimum the generator MUST reject any level winnable by an all-rows partition, an all-columns partition (where the grid shape admits one), or a simple greedy/blocked partition. Affiliations SHOULD be distributed rather than pre-clustered, so that packing and cracking are actually required (e.g., Level 4 MUST NOT ship with the opponent's voters already concentrated in one corner).
+  - **Upper bound (fair):** the win target MUST retain a minimum slack margin. Jerry's total assignable cells MUST exceed the bare minimum needed to hit the seat target (`minSeats × cells_to_win`) by a per-level margin, so that more than one valid winning partition exists and the solution is not a near-unique, zero-slack puzzle. A level whose only solutions are effectively unique (as Level 5 was when Jerry held exactly `7 × 6 = 42` cells) MUST be regenerated with more slack.
+  - The exact naive-baseline set and the numeric slack margins are per-level tuning constants (like the FR-3.5 compactness cutoffs), deferred to solver calibration.
 - **Level 1: The Basics of Packing and Cracking:** Grid: 4x4 squares (16 cells). Districts: 4 of 4 cells each. Win Condition: Win 2 or more districts. (At 16 cells with Jerry under 50%, 2 of 4 is the mathematical maximum a minority party can take; this teaches that a minority can still seize half the seats through packing and cracking.)
 - **Level 2: The Sprawl:** Grid: 8x8 squares (64 cells). Districts: 8 of 8 cells each. Win Condition: Win 5 or more districts.
 - **Level 3: The Triangle Trap:** Grid: an equilateral triangle subdivided into 36 unit triangles arranged in 6 rows, where row `i` (top to bottom) contains `2i − 1` triangles alternating point-up/point-down. Two unit triangles are adjacent iff they share an edge (each has at most 3 such neighbors). Districts: 6 of 6 triangles each. Win Condition: Win a strict majority of districts (4 or more).
@@ -70,6 +74,7 @@ All previously open questions are resolved except one intentionally deferred ite
 ### Deferred (not a blocker for other work)
 
 1. **Compactness ratio-to-grade mapping (FR-3.5):** The metric is fixed — a discrete perimeter-to-area edge-count ratio with per-level, solver-calibrated A–F cutoffs, C-or-higher to pass. The exact numeric cutoffs are deferred to implementation/solver calibration, where they are tuned so a C-or-higher solution stays reachable.
+2. **Difficulty-band constants (FR-5.4):** The exact naive-baseline partition set and the per-level slack margins that keep levels instructive but fair are deferred to solver calibration and playtesting.
 
 ### Resolved
 

@@ -7,7 +7,9 @@ For each level in the manifest this re-loads the committed JSON and checks:
   * K * districtSize == assignable-cell count (FR-3.2, FR-3.4);
   * Jerry is a strict minority of assignable cells (FR-1.2);
   * adjacency references only non-void cells, is symmetric, and matches FR-1.4;
-  * the committed ``referenceSolution`` validates SOLVED (FR-4.4).
+  * the committed ``referenceSolution`` validates SOLVED (FR-4.4);
+  * the level sits inside the FR-5.4 difficulty band (no naive baseline wins, the
+    affiliations are distributed, and Jerry holds slack above the seat target).
 
 Exits non-zero on the first failure so it can gate the build.
 """
@@ -18,7 +20,7 @@ import json
 import sys
 from pathlib import Path
 
-from . import rules
+from . import difficulty, rules
 
 DEFAULT_DIR = Path(__file__).resolve().parent.parent / "web" / "public" / "levels"
 
@@ -98,6 +100,10 @@ def verify_level(level: dict) -> dict:
             assignment[cid] = did
     result = rules.validate(level, assignment)
     _require(result["solved"], f"{lid}: referenceSolution NOT SOLVED -> {result}")
+
+    # Difficulty band (FR-5.4): instructive lower bound, fair upper bound.
+    accepted, reason = difficulty.gate(level)
+    _require(accepted, f"{lid}: outside the FR-5.4 difficulty band -> {reason}")
     return result
 
 
@@ -109,7 +115,8 @@ def verify_dir(levels_dir: Path) -> int:
         result = verify_level(level)
         print(
             f"  OK {level['id']}: seats={result['seats']} "
-            f"grade={result['compactnessGrade']} gap={result['efficiencyGap']}"
+            f"grade={result['compactnessGrade']} gap={result['efficiencyGap']} "
+            f"slack={difficulty.slack(level)}"
         )
         count += 1
     return count

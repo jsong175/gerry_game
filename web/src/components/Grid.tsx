@@ -4,12 +4,21 @@
 // (accessibility), draws bold outlines on committed districts and the white
 // draw-line on the district in progress, and flags violating cells.
 
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 import type { DistrictInfo } from "../state/useGame";
 import type { Assignment, Level, LevelCell } from "../types";
 import { COLOR, districtTint } from "../theme";
-import { cellPoly, computeViewBox, pointsToStr, squarePoly } from "./geometry";
+import {
+  borderWeights,
+  buildEdgeOwners,
+  cellPoly,
+  computeViewBox,
+  edgeKey,
+  pointsToStr,
+  polyEdges,
+  squarePoly,
+} from "./geometry";
 
 interface Props {
   level: Level;
@@ -45,6 +54,10 @@ export function Grid(props: Props) {
   const isTri = level.shape === "triangle";
   const iconR = isTri ? 0.16 : 0.24;
   const cellById = new Map(level.cells.map((c) => [c.id, c]));
+  // Line weights scale with cell size, so the small triangles are not smothered
+  // by the square levels' heavy borders (DESIGN.md "Committed districts are bold").
+  const weight = borderWeights(level.shape);
+  const edgeOwners = useMemo(() => buildEdgeOwners(level), [level]);
 
   useEffect(() => {
     const up = () => (dragging.current = false);
@@ -55,15 +68,6 @@ export function Grid(props: Props) {
       window.removeEventListener("pointercancel", up);
     };
   }, []);
-
-  // Square neighbour lookup by coordinate for boundary drawing.
-  const coordDistrict = new Map<string, number>();
-  if (!isTri) {
-    for (const [cid, did] of assignment) {
-      const cell = cellById.get(cid)!;
-      coordDistrict.set(`${cell.col},${cell.row}`, did);
-    }
-  }
 
   // District label centroids.
   const labelAccum = new Map<number, { x: number; y: number; n: number }>();
@@ -77,7 +81,7 @@ export function Grid(props: Props) {
           points={pointsToStr(poly.points)}
           fill="#C9D4D0"
           stroke={COLOR.ink}
-          strokeWidth={0.02}
+          strokeWidth={weight.cell}
           opacity={0.7}
         />
       );
@@ -115,7 +119,12 @@ export function Grid(props: Props) {
 
     return (
       <g key={cell.id} onPointerDown={onDown} onPointerEnter={onEnter} style={{ cursor: cell.fixed ? "not-allowed" : "pointer" }}>
-        <polygon points={pointsToStr(poly.points)} fill={tint} stroke={COLOR.ink} strokeWidth={0.02} />
+        <polygon
+          points={pointsToStr(poly.points)}
+          fill={tint}
+          stroke={COLOR.ink}
+          strokeWidth={weight.cell}
+        />
         <PartyMark cell={cell} cx={cx} cy={cy} r={iconR} assigned={assigned} />
         {cell.fixed && (
           <circle cx={cx} cy={cy} r={iconR * 0.5} fill="none" stroke={COLOR.ink} strokeWidth={0.05} />
@@ -125,59 +134,41 @@ export function Grid(props: Props) {
             points={pointsToStr(poly.points)}
             fill="none"
             stroke={COLOR.neutral}
-            strokeWidth={0.09}
-            strokeDasharray="0.18 0.12"
+            strokeWidth={weight.violation}
+            strokeDasharray={weight.dash}
           />
         )}
       </g>
     );
   });
 
-  // District boundary strokes.
+  // District boundary strokes: stroke only the cell edges that separate a district
+  // from something else. Driven by the shared edge index, so squares and triangles
+  // take the same path and no interior edge is ever drawn bold.
   const borders: React.ReactNode[] = [];
-  const dirs: [number, number, [number, number], [number, number]][] = [
-    [0, -1, [0, 0], [1, 0]], // top edge
-    [1, 0, [1, 0], [1, 1]], // right edge
-    [0, 1, [0, 1], [1, 1]], // bottom edge
-    [-1, 0, [0, 0], [0, 1]], // left edge
-  ];
   for (const [cid, did] of assignment) {
     const cell = cellById.get(cid)!;
     const info = districtInfo.get(did);
-    const strokeW = info?.complete ? 0.14 : active === did ? 0.14 : 0.08;
+    const strokeW = info?.complete || active === did ? weight.district : weight.forming;
     const stroke = active === did ? COLOR.draw : info?.complete ? COLOR.ink : COLOR.teal;
-    if (isTri) {
+    polyEdges(cellPoly(cell, level)).forEach(([p1, p2], i) => {
+      const owners = edgeOwners.get(edgeKey(p1, p2)) ?? [];
+      const neighbour = owners.find((o) => o !== cid);
+      if (neighbour !== undefined && assignment.get(neighbour) === did) return; // interior
       borders.push(
-        <polygon
-          key={`b${cid}`}
-          points={pointsToStr(cellPoly(cell, level).points)}
-          fill="none"
+        <line
+          key={`b${cid}-${i}`}
+          x1={p1[0]}
+          y1={p1[1]}
+          x2={p2[0]}
+          y2={p2[1]}
           stroke={stroke}
           strokeWidth={strokeW}
-          strokeLinejoin="round"
+          strokeLinecap="round"
           pointerEvents="none"
         />,
       );
-    } else {
-      const { col = 0, row = 0 } = cell;
-      for (const [dx, dy, p1, p2] of dirs) {
-        if (coordDistrict.get(`${col + dx},${row + dy}`) !== did) {
-          borders.push(
-            <line
-              key={`b${cid}-${dx}-${dy}`}
-              x1={col + p1[0]}
-              y1={row + p1[1]}
-              x2={col + p2[0]}
-              y2={row + p2[1]}
-              stroke={stroke}
-              strokeWidth={strokeW}
-              strokeLinecap="round"
-              pointerEvents="none"
-            />,
-          );
-        }
-      }
-    }
+    });
   }
 
   const labels = [...labelAccum].map(([did, acc]) => (
@@ -200,12 +191,14 @@ export function Grid(props: Props) {
   ));
 
   return (
+    // preserveAspectRatio (the SVG default) scales the board down to whatever box
+    // the layout gives it, letterboxing rather than clipping or distorting.
     <svg
       viewBox={`${vb.minX} ${vb.minY} ${vb.width} ${vb.height}`}
       className="grid-svg"
       role="img"
       aria-label={`${level.name} board`}
-      style={{ touchAction: "none", width: "100%", height: "auto", maxHeight: "62vh" }}
+      style={{ touchAction: "none" }}
     >
       {cellNodes}
       {borders}

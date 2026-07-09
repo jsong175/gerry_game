@@ -13,11 +13,6 @@ def _contiguous_equal(adj, districts, size):
     return ok
 
 
-def test_row_partition():
-    districts = part.row_partition(4, 4, 4)
-    assert districts == [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11], [12, 13, 14, 15]]
-
-
 def test_block_partition_tiles_and_is_contiguous():
     grid = build_square(10, 10)
     adj = grid.adjacency()

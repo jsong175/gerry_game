@@ -22,7 +22,7 @@
     },
     {
       "id": 1,
-      "party": "jerry",
+      "party": "opponent",
       "fixed": false,
       "void": false,
       "col": 1,
@@ -30,7 +30,7 @@
     },
     {
       "id": 2,
-      "party": "jerry",
+      "party": "opponent",
       "fixed": false,
       "void": false,
       "col": 2,
@@ -54,7 +54,7 @@
     },
     {
       "id": 5,
-      "party": "opponent",
+      "party": "jerry",
       "fixed": false,
       "void": false,
       "col": 1,
@@ -78,7 +78,7 @@
     },
     {
       "id": 8,
-      "party": "jerry",
+      "party": "opponent",
       "fixed": false,
       "void": false,
       "col": 0,
@@ -110,7 +110,7 @@
     },
     {
       "id": 12,
-      "party": "opponent",
+      "party": "jerry",
       "fixed": false,
       "void": false,
       "col": 0,
@@ -118,7 +118,7 @@
     },
     {
       "id": 13,
-      "party": "opponent",
+      "party": "jerry",
       "fixed": false,
       "void": false,
       "col": 1,
@@ -134,7 +134,7 @@
     },
     {
       "id": 15,
-      "party": "opponent",
+      "party": "jerry",
       "fixed": false,
       "void": false,
       "col": 3,
@@ -241,28 +241,28 @@
   ],
   "referenceSolution": [
     [
+      12,
+      13,
+      14,
+      15
+    ],
+    [
       0,
       1,
-      2,
-      3
-    ],
-    [
       4,
-      5,
-      6,
-      7
+      8
     ],
     [
-      8,
+      5,
       9,
       10,
       11
     ],
     [
-      12,
-      13,
-      14,
-      15
+      2,
+      3,
+      6,
+      7
     ]
   ]
 }
