@@ -24,6 +24,14 @@ MAX_ATTEMPTS = 60
 # randomized partition search and the party placement both move each attempt.
 SEED_STRIDE = 1009
 
+# Levels that should not take all the slack the board can carry. Without an entry
+# here a level starts from ``max_extra_jerry``, which pushes Jerry to just under
+# half the board and makes the level play too easy. A level listed here starts
+# from this many extra Jerry cells instead, still easing down to its FR-5.4 margin.
+JERRY_EXTRA_TARGETS: dict[str, int] = {
+    "L5": 12,  # 7 x 6 + 12 = 54 Jerry cells of 132 (~41%), vs 65 (~49%) at the ceiling
+}
+
 
 def evenly_spread(k: int, n: int) -> set[int]:
     """Pick ``n`` distinct indices in [0, k) spread as evenly as possible."""
@@ -150,11 +158,15 @@ def build_level(spec: dict) -> dict:
     min_seats = spec["minSeats"]
     margin = difficulty.SLACK_MARGINS.get(spec["id"], 1)
     ceiling = max_extra_jerry(k, size, min_seats)
+    start = min(ceiling, JERRY_EXTRA_TARGETS.get(spec["id"], ceiling))
     last_error = "no attempt made"
 
-    for attempt in range(MAX_ATTEMPTS):
-        seed = spec.get("seed", 0) + attempt * SEED_STRIDE
-        for voids in void_sets:
+    # Void candidates are listed in preference order, so exhaust every seed on one
+    # before falling back to the next. (Levels other than 5 have a single, empty
+    # candidate, for which this is the same iteration as the plain seed loop.)
+    for voids in void_sets:
+        for attempt in range(MAX_ATTEMPTS):
+            seed = spec.get("seed", 0) + attempt * SEED_STRIDE
             grid = _build_grid(spec, voids)
             adj = grid.adjacency()
             nodes = grid.assignable_ids()
@@ -169,7 +181,8 @@ def build_level(spec: dict) -> dict:
 
             # Prefer the most slack the level can carry, easing off only as far as
             # the FR-5.4 margin: more slack means more winning partitions exist.
-            for extra in range(ceiling, margin - 1, -1):
+            # Levels in JERRY_EXTRA_TARGETS start below the ceiling instead.
+            for extra in range(start, margin - 1, -1):
                 counts = jerry_targets(k, size, min_seats, extra)
                 assign_parties(grid, adj, partition, counts, seed)
                 level = _emit(spec, grid, partition)
